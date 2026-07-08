@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Script.Players.Components.Inputs {
     public class PlayerInputReader : MonoBehaviour, Controls.IPlayerActions {
-        public Vector2 Move { get; private set; }
+        public event Action<Vector3> OnMovePressed;
         public event Action OnJumpPressed;
         private Controls _controls;
 
@@ -20,7 +20,7 @@ namespace Script.Players.Components.Inputs {
         }
 
         public void OnMove(InputAction.CallbackContext context) { 
-            Move = context.ReadValue<Vector2>();
+            OnMovePressed?.Invoke(context.ReadValue<Vector3>());
         }
         public void OnLook(InputAction.CallbackContext context) {
             

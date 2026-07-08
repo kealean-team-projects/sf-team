@@ -132,6 +132,8 @@ GameObject:
   - component: {fileID: 70572748}
   - component: {fileID: 70572747}
   - component: {fileID: 70572746}
+  - component: {fileID: 70572752}
+  - component: {fileID: 70572751}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -164,7 +166,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!136 &70572747
 CapsuleCollider:
@@ -261,6 +263,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &70572751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70572745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31e07a1a25524ef6a5c2f59a21be8a74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Script.Players.Components.Inputs.PlayerInputReader
+--- !u!114 &70572752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70572745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe6aca24dd3343c29b2a80b1cb2732e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Script.Players.Test
+  rb: {fileID: 70572746}
+  reader: {fileID: 70572751}
+  speed: 15.2
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,7 +629,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2100983034}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: e4626591966586e47978250a1d04ce67, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -680,8 +709,8 @@ Transform:
   m_GameObject: {fileID: 2100983034}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.09614, y: -0, z: -2.59436}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 3.0962, y: -0, z: -2.5944}
+  m_LocalScale: {x: 546.1271, y: 1, z: 594.9914}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
