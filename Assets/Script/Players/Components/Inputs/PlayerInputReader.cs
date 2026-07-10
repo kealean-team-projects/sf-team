@@ -6,6 +6,7 @@ namespace Script.Players.Components.Inputs {
     public class PlayerInputReader : MonoBehaviour, Controls.IPlayerActions {
         public event Action<Vector3> OnMovePressed;
         public event Action OnJumpPressed;
+        public event Action OnInteractPressed;
         private Controls _controls;
 
         private void Awake() {
@@ -26,7 +27,10 @@ namespace Script.Players.Components.Inputs {
             
         }
         public void OnInteract(InputAction.CallbackContext context) {
-            
+            if (context.performed)
+            {
+                OnInteractPressed?.Invoke();
+            }
         }
         public void OnCrouch(InputAction.CallbackContext context) {
             

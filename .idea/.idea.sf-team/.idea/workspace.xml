@@ -5,9 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c942b16-4128-42b8-b634-46cfc9e47667" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Script/Interectable-Object/IInteractable.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Script/Interectable-Object/IInteractable.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Script/Interectable-Object/TestInteract.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Script/Interectable-Object/TestInteract.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.sf-team/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.sf-team/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/Players/Components/Inputs/Controls.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Players/Components/Inputs/Controls.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/Players/Components/Inputs/Controls.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Players/Components/Inputs/Controls.inputactions" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/Players/Components/Inputs/PlayerInputReader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Players/Components/Inputs/PlayerInputReader.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Script/Players/Components/InteractManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Players/Components/InteractManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/Players/Test.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Players/Test.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,7 +27,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Script/Interectable-Object/TestInteract.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/51804302dc114f2992009a5e79b89b072b200/11/1796c09a/Physics.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/bd077861e3c14a0293599ce85c1f7c3a6dc00/21/05faa811/PhysicsShape.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="McpProjectServerCommands">
     <commands />
@@ -36,21 +47,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Unity 에디터에 연결.Unity 에디터에 연결">
     <configuration name="유닛 테스트(배치 모드)" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.5.3f1\Editor\Unity.exe" />
@@ -97,7 +108,9 @@
       <option name="presentableId" value="Default" />
       <updated>1783507622838</updated>
       <workItem from="1783507628664" duration="976000" />
-      <workItem from="1783607362128" duration="3940000" />
+      <workItem from="1783607362128" duration="4012000" />
+      <workItem from="1783639673034" duration="1708000" />
+      <workItem from="1783641632676" duration="301000" />
     </task>
     <servers />
   </component>

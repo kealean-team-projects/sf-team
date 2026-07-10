@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Script.Interectable_Object;
 using Unity.U2D.Physics;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -14,7 +15,7 @@ namespace Script.Players.Components
         [SerializeField] private float xPos;
         [SerializeField] private float yPos;
         [SerializeField] private float zPos;
-        [SerializeField] private PhysicsShape.ContactFilter whatIsTarget;
+        [SerializeField] private LayerMask whatIsTarget;
         [SerializeField] private bool debug;
         [SerializeField] private int bufferSize;
         
@@ -32,7 +33,8 @@ namespace Script.Players.Components
         public void Interact()
         {
             int count = Physics.OverlapBoxNonAlloc(BoxPos, BoxSize*0.5f, _interactArray,
-                transform.rotation, whatIsTarget.groupIndex);
+                transform.rotation, whatIsTarget);
+            Debug.Log($"Overlap count: {count}");
             if (count <= 0) return;
             float distance = float.MaxValue;
             IInteractable closestInteractor = null;
@@ -49,12 +51,14 @@ namespace Script.Players.Components
                 }
                 
             }
+            Debug.Log(3);
 
             if (closestInteractor == null)
             {
                 Debug.LogWarning("감지된 물체중 IInteractable을 가진 물체가 없음");
                 return;
             }
+            Debug.Log(4);
             closestInteractor.Interact();
         }
 
@@ -67,10 +71,5 @@ namespace Script.Players.Components
         }
         
         
-    }
-
-    internal interface IInteractable
-    {
-        void Interact();
     }
 }
