@@ -20,7 +20,7 @@ namespace Script.Players.Components
         [SerializeField] private int bufferSize;
         
         private Vector3 BoxSize => new Vector3(xSize, ySize, zSize);
-        private Vector3 BoxPos => transform.position + new Vector3(xPos, yPos, zPos);
+        private Vector3 BoxPos => transform.TransformPoint(new Vector3(xPos, yPos, zPos));
         private Collider[] _interactArray;
         
 
