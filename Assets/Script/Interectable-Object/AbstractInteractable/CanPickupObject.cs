@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Script.Interectable_Object.AbstractInteractable
 {
+    [RequireComponent(typeof(Rigidbody))]
     public abstract class CanPickupObject : MonoBehaviour, IInteractable
     {
         private Rigidbody _rb;

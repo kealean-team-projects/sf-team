@@ -11,7 +11,9 @@ namespace Script.Players.Components {
         [SerializeField] private float zPos;
         [SerializeField] private LayerMask whatIsTarget;
         [SerializeField] private bool debug;
-        [SerializeField] private int bufferSize;
+        [SerializeField] private int bufferSize = 5;
+
+        [field: SerializeField] public InteractableItemSO InHandItem { get; private set; }
 
         [field: SerializeField] public Transform HandPos { get; private set; }
 
