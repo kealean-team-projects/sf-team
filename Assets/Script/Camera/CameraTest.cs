@@ -27,8 +27,9 @@ namespace Script.Camera
         private void Update()
         {
             if (Keyboard.current.escapeKey.wasPressedThisFrame) lockCursor = !lockCursor;
+#if !UNITY_EDITOR
             LockCursor(lockCursor);
-            
+#endif
         }
 
         private void LateUpdate()
@@ -53,7 +54,7 @@ namespace Script.Camera
         {
             mouseDelta = mousePos;
         }
-
+        #if !UNITY_EDITOR
         private void LockCursor(bool lockCursor)
         {
             if (lockCursor)
@@ -68,5 +69,6 @@ namespace Script.Camera
                 Cursor.visible = true;
             }
         }
+        #endif
     }
 }
