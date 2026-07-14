@@ -40,6 +40,11 @@ namespace Script.Players {
         {
             interactor.Interact();
         }
+        
+        private void HandleSight(Vector2 obj)
+        {
+            Debug.Log(obj);
+        }
 
         private void OnJump() {
             if(_arrowJump) {
