@@ -26,7 +26,7 @@ namespace Script.Players {
             reader.OnMovePressed += OnMove;
             reader.OnJumpPressed += OnJump;
             reader.OnInteractPressed += OnInteract;
-            
+            reader.OnMouseMoved += HandleSight;
         }
 
 
@@ -55,8 +55,7 @@ namespace Script.Players {
         {
             Vector3 velocity = new Vector3();
             velocity.y = rb.linearVelocity.y;
-            velocity.x = _moveDir.x * speed;
-            velocity.z = _moveDir.z * speed;
+            velocity = (transform.right * _moveDir.x + transform.forward * _moveDir.z) * speed;
             rb.linearVelocity = velocity;
 
             var jhit = Physics.OverlapBox(transform.position + cali, middle, Quaternion.identity, whatIsGround);
