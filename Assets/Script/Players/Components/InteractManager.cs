@@ -18,6 +18,9 @@ namespace Script.Players.Components
         [SerializeField] private LayerMask whatIsTarget;
         [SerializeField] private bool debug;
         [SerializeField] private int bufferSize;
+
+        [field: SerializeField] public Transform HandPos { get; private set; }
+        
         [SerializeField] private bool showInteractable;
         
         private Vector3 BoxSize => new Vector3(xSize, ySize, zSize);
@@ -60,7 +63,7 @@ namespace Script.Players.Components
                 return;
             }
             Debug.Log(4);
-            closestInteractor.Interact();
+            closestInteractor.Interact(this);
         }
 
         private void OnDrawGizmos()
