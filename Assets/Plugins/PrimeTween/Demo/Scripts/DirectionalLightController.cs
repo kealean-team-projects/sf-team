@@ -4,14 +4,18 @@ using UnityEngine;
 
 namespace PrimeTweenDemo {
     public class DirectionalLightController : MonoBehaviour {
-        [SerializeField] Light directionalLight;
-        [SerializeField] Camera mainCamera;
-        [SerializeField] Color startColor;
-        [SerializeField] Color endColor;
-        float angleX;
-        float angleY;
+        [SerializeField] private Light directionalLight;
+        [SerializeField] private Camera mainCamera;
+        [SerializeField] private Color startColor;
+        [SerializeField] private Color endColor;
+        private float angleX;
+        private float angleY;
 
-        void OnEnable() {
+        private void Update() {
+            transform.localEulerAngles = new Vector3(angleX, angleY);
+        }
+
+        private void OnEnable() {
             // This overload is simpler but allocates a small amount of garbage because 'this' reference is captured in a closure.
             // It's ok to use it once in a while, but for hot code paths consider using the overload that accepts 'target' as the first parameter.
             var xRotationSettings = new TweenSettings<float>(45, 10, 10, Ease.Linear, -1, CycleMode.Yoyo);
@@ -25,10 +29,6 @@ namespace PrimeTweenDemo {
             Tween.LightColor(directionalLight, colorSettings);
             Tween.CameraBackgroundColor(mainCamera, colorSettings);
             Tween.Custom(colorSettings, color => RenderSettings.fogColor = color);
-        }
-
-        void Update() {
-            transform.localEulerAngles = new Vector3(angleX, angleY);
         }
     }
 }

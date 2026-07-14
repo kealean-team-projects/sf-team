@@ -2,169 +2,176 @@
 // Available at the Unity Asset Store - http://u3d.as/y3X 
 Shader "Distant Lands/Stylized Vegetation"
 {
-	Properties
-	{
-		_NoiseScale("Noise Scale", Float) = 1
-		_BounceAmount("Bounce Amount", Float) = 1
-		_Texture("Texture", 2D) = "white" {}
-		_NoiseSpeed("Noise Speed", Float) = 1
-		_AlphaClip("Alpha Clip", Float) = 1
-		_SwayAmount("Sway Amount", Float) = 1
-		[HDR]_TopColor("Top Color", Color) = (0,0,0,0)
-		[HDR]_BottomColor("Bottom Color", Color) = (0.3614275,0.5849056,0.3748917,0)
-		_GradientSmoothness("Gradient Smoothness", Float) = 0
-		_GradientOffset("Gradient Offset", Float) = 0
-		_UpperLightTransmission("Upper Light Transmission", Float) = 0
-		_LowerLightTransmission("Lower Light Transmission", Float) = 0
-		_MainWindSpeed("Main Wind Speed", Float) = 0
-		_MainWindScale("Main Wind Scale", Float) = 0
-		[HideInInspector] _texcoord( "", 2D ) = "white" {}
-		[HideInInspector] __dirty( "", Int ) = 1
-	}
+    Properties
+    {
+        _NoiseScale("Noise Scale", Float) = 1
+        _BounceAmount("Bounce Amount", Float) = 1
+        _Texture("Texture", 2D) = "white" {}
+        _NoiseSpeed("Noise Speed", Float) = 1
+        _AlphaClip("Alpha Clip", Float) = 1
+        _SwayAmount("Sway Amount", Float) = 1
+        [HDR]_TopColor("Top Color", Color) = (0,0,0,0)
+        [HDR]_BottomColor("Bottom Color", Color) = (0.3614275,0.5849056,0.3748917,0)
+        _GradientSmoothness("Gradient Smoothness", Float) = 0
+        _GradientOffset("Gradient Offset", Float) = 0
+        _UpperLightTransmission("Upper Light Transmission", Float) = 0
+        _LowerLightTransmission("Lower Light Transmission", Float) = 0
+        _MainWindSpeed("Main Wind Speed", Float) = 0
+        _MainWindScale("Main Wind Scale", Float) = 0
+        [HideInInspector] _texcoord( "", 2D ) = "white" {}
+        [HideInInspector] __dirty( "", Int ) = 1
+    }
 
-	SubShader
-	{
-		Tags{ "RenderType" = "Opaque"  "Queue" = "Geometry+0" "IsEmissive" = "true"  }
-		Cull Off
-		CGPROGRAM
-		#include "UnityShaderVariables.cginc"
-		#pragma target 3.0
-		#pragma surface surf Standard keepalpha addshadow fullforwardshadows vertex:vertexDataFunc 
-		struct Input
-		{
-			float2 uv_texcoord;
-			float3 worldPos;
-		};
+    SubShader
+    {
+        Tags
+        {
+            "RenderType" = "Opaque" "Queue" = "Geometry+0" "IsEmissive" = "true"
+        }
+        Cull Off
+        CGPROGRAM
+        #include "UnityShaderVariables.cginc"
+        #pragma target 3.0
+        #pragma surface surf Standard keepalpha addshadow fullforwardshadows vertex:vertexDataFunc
+        struct Input
+        {
+            float2 uv_texcoord;
+            float3 worldPos;
+        };
 
-		uniform float _BounceAmount;
-		uniform float _NoiseSpeed;
-		uniform float _NoiseScale;
-		uniform float _SwayAmount;
-		uniform float _MainWindSpeed;
-		uniform float _MainWindScale;
-		uniform sampler2D _Texture;
-		uniform float4 _Texture_ST;
-		uniform float _AlphaClip;
-		uniform float4 _BottomColor;
-		uniform float4 _TopColor;
-		uniform float _GradientOffset;
-		uniform float _GradientSmoothness;
-		uniform float _LowerLightTransmission;
-		uniform float _UpperLightTransmission;
-
-
-		float3 RGBToHSV(float3 c)
-		{
-			float4 K = float4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
-			float4 p = lerp( float4( c.bg, K.wz ), float4( c.gb, K.xy ), step( c.b, c.g ) );
-			float4 q = lerp( float4( p.xyw, c.r ), float4( c.r, p.yzx ), step( p.x, c.r ) );
-			float d = q.x - min( q.w, q.y );
-			float e = 1.0e-10;
-			return float3( abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
-		}
-
-		float3 mod2D289( float3 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
-
-		float2 mod2D289( float2 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
-
-		float3 permute( float3 x ) { return mod2D289( ( ( x * 34.0 ) + 1.0 ) * x ); }
-
-		float snoise( float2 v )
-		{
-			const float4 C = float4( 0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439 );
-			float2 i = floor( v + dot( v, C.yy ) );
-			float2 x0 = v - i + dot( i, C.xx );
-			float2 i1;
-			i1 = ( x0.x > x0.y ) ? float2( 1.0, 0.0 ) : float2( 0.0, 1.0 );
-			float4 x12 = x0.xyxy + C.xxzz;
-			x12.xy -= i1;
-			i = mod2D289( i );
-			float3 p = permute( permute( i.y + float3( 0.0, i1.y, 1.0 ) ) + i.x + float3( 0.0, i1.x, 1.0 ) );
-			float3 m = max( 0.5 - float3( dot( x0, x0 ), dot( x12.xy, x12.xy ), dot( x12.zw, x12.zw ) ), 0.0 );
-			m = m * m;
-			m = m * m;
-			float3 x = 2.0 * frac( p * C.www ) - 1.0;
-			float3 h = abs( x ) - 0.5;
-			float3 ox = floor( x + 0.5 );
-			float3 a0 = x - ox;
-			m *= 1.79284291400159 - 0.85373472095314 * ( a0 * a0 + h * h );
-			float3 g;
-			g.x = a0.x * x0.x + h.x * x0.y;
-			g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-			return 130.0 * dot( m, g );
-		}
+        uniform float _BounceAmount;
+        uniform float _NoiseSpeed;
+        uniform float _NoiseScale;
+        uniform float _SwayAmount;
+        uniform float _MainWindSpeed;
+        uniform float _MainWindScale;
+        uniform sampler2D _Texture;
+        uniform float4 _Texture_ST;
+        uniform float _AlphaClip;
+        uniform float4 _BottomColor;
+        uniform float4 _TopColor;
+        uniform float _GradientOffset;
+        uniform float _GradientSmoothness;
+        uniform float _LowerLightTransmission;
+        uniform float _UpperLightTransmission;
 
 
-		float3 RotateAroundAxis( float3 center, float3 original, float3 u, float angle )
-		{
-			original -= center;
-			float C = cos( angle );
-			float S = sin( angle );
-			float t = 1 - C;
-			float m00 = t * u.x * u.x + C;
-			float m01 = t * u.x * u.y - S * u.z;
-			float m02 = t * u.x * u.z + S * u.y;
-			float m10 = t * u.x * u.y + S * u.z;
-			float m11 = t * u.y * u.y + C;
-			float m12 = t * u.y * u.z - S * u.x;
-			float m20 = t * u.x * u.z - S * u.y;
-			float m21 = t * u.y * u.z + S * u.x;
-			float m22 = t * u.z * u.z + C;
-			float3x3 finalMatrix = float3x3( m00, m01, m02, m10, m11, m12, m20, m21, m22 );
-			return mul( finalMatrix, original ) + center;
-		}
+        float3 RGBToHSV(float3 c)
+        {
+            float4 K = float4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+            float4 p = lerp(float4(c.bg, K.wz), float4(c.gb, K.xy), step(c.b, c.g));
+            float4 q = lerp(float4(p.xyw, c.r), float4(c.r, p.yzx), step(p.x, c.r));
+            float d = q.x - min(q.w, q.y);
+            float e = 1.0e-10;
+            return float3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
+        }
+
+        float3 mod2D289(float3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+
+        float2 mod2D289(float2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+
+        float3 permute(float3 x) { return mod2D289(((x * 34.0) + 1.0) * x); }
+
+        float snoise(float2 v)
+        {
+            const float4 C = float4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+            float2 i = floor(v + dot(v, C.yy));
+            float2 x0 = v - i + dot(i, C.xx);
+            float2 i1;
+            i1 = (x0.x > x0.y) ? float2(1.0, 0.0) : float2(0.0, 1.0);
+            float4 x12 = x0.xyxy + C.xxzz;
+            x12.xy -= i1;
+            i = mod2D289(i);
+            float3 p = permute(permute(i.y + float3(0.0, i1.y, 1.0)) + i.x + float3(0.0, i1.x, 1.0));
+            float3 m = max(0.5 - float3(dot(x0, x0), dot(x12.xy, x12.xy), dot(x12.zw, x12.zw)), 0.0);
+            m = m * m;
+            m = m * m;
+            float3 x = 2.0 * frac(p * C.www) - 1.0;
+            float3 h = abs(x) - 0.5;
+            float3 ox = floor(x + 0.5);
+            float3 a0 = x - ox;
+            m *= 1.79284291400159 - 0.85373472095314 * (a0 * a0 + h * h);
+            float3 g;
+            g.x = a0.x * x0.x + h.x * x0.y;
+            g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+            return 130.0 * dot(m, g);
+        }
 
 
-		void vertexDataFunc( inout appdata_full v, out Input o )
-		{
-			UNITY_INITIALIZE_OUTPUT( Input, o );
-			float3 ase_vertex3Pos = v.vertex.xyz;
-			float3 break88 = ase_vertex3Pos;
-			float3 appendResult89 = (float3(break88.x , 0.0 , break88.z));
-			float4 transform90 = mul(unity_ObjectToWorld,float4( 0,0,0,1 ));
-			float4 appendResult71 = (float4(v.color.b , v.color.r , v.color.g , v.color.a));
-			float4 normalizeResult11_g30 = normalize( appendResult71 );
-			float3 hsvTorgb22_g30 = RGBToHSV( normalizeResult11_g30.rgb );
-			float2 appendResult3_g30 = (float2(( _NoiseSpeed * _Time.y ) , ( ( transform90 * float4( 0.5,0.5,0.5,0 ) ).x + ( hsvTorgb22_g30.x * 100.0 ) )));
-			float simplePerlin2D4_g30 = snoise( appendResult3_g30*_NoiseScale );
-			float4 normalizeResult11_g29 = normalize( v.color );
-			float3 hsvTorgb22_g29 = RGBToHSV( normalizeResult11_g29.rgb );
-			float2 appendResult3_g29 = (float2(( _NoiseSpeed * _Time.y ) , ( transform90.x + ( hsvTorgb22_g29.x * 100.0 ) )));
-			float simplePerlin2D4_g29 = snoise( appendResult3_g29*_NoiseScale );
-			float3 rotatedValue24 = RotateAroundAxis( float3( 0,0,0 ), ase_vertex3Pos, normalize( float3( 0,1,0 ) ), ( ( simplePerlin2D4_g29 / 2.0 ) * _SwayAmount ) );
-			float3 SubtleWind92 = ( ( float3(0,1,0) * distance( appendResult89 , float3( 0,0,0 ) ) * _BounceAmount * ( simplePerlin2D4_g30 / 2.0 ) ) + ( rotatedValue24 - ase_vertex3Pos ) );
-			float4 transform104 = mul(unity_ObjectToWorld,float4( 0,0,0,1 ));
-			float2 appendResult100 = (float2(transform104.x , transform104.z));
-			float simplePerlin2D91 = snoise( ( abs( appendResult100 ) + ( _Time.y * _MainWindSpeed ) )*_MainWindScale );
-			simplePerlin2D91 = simplePerlin2D91*0.5 + 0.5;
-			v.vertex.xyz += ( SubtleWind92 * simplePerlin2D91 );
-			v.vertex.w = 1;
-		}
+        float3 RotateAroundAxis(float3 center, float3 original, float3 u, float angle)
+        {
+            original -= center;
+            float C = cos(angle);
+            float S = sin(angle);
+            float t = 1 - C;
+            float m00 = t * u.x * u.x + C;
+            float m01 = t * u.x * u.y - S * u.z;
+            float m02 = t * u.x * u.z + S * u.y;
+            float m10 = t * u.x * u.y + S * u.z;
+            float m11 = t * u.y * u.y + C;
+            float m12 = t * u.y * u.z - S * u.x;
+            float m20 = t * u.x * u.z - S * u.y;
+            float m21 = t * u.y * u.z + S * u.x;
+            float m22 = t * u.z * u.z + C;
+            float3x3 finalMatrix = float3x3(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+            return mul(finalMatrix, original) + center;
+        }
 
-		void surf( Input i , inout SurfaceOutputStandard o )
-		{
-			float2 uv_Texture = i.uv_texcoord * _Texture_ST.xy + _Texture_ST.zw;
-			float4 tex2DNode45 = tex2D( _Texture, uv_Texture );
-			clip( tex2DNode45.a - _AlphaClip);
-			float3 ase_vertex3Pos = mul( unity_WorldToObject, float4( i.worldPos , 1 ) );
-			float clampResult33 = clamp( ( ( ase_vertex3Pos.y - _GradientOffset ) * _GradientSmoothness ) , 0.0 , 1.0 );
-			float SunDirection39 = clampResult33;
-			float4 lerpResult48 = lerp( _BottomColor , _TopColor , SunDirection39);
-			o.Albedo = ( tex2DNode45 * lerpResult48 ).rgb;
-			#if defined(LIGHTMAP_ON) && ( UNITY_VERSION < 560 || ( defined(LIGHTMAP_SHADOW_MIXING) && !defined(SHADOWS_SHADOWMASK) && defined(SHADOWS_SCREEN) ) )//aselc
-			float4 ase_lightColor = 0;
-			#else //aselc
-			float4 ase_lightColor = _LightColor0;
-			#endif //aselc
-			float4 lerpResult46 = lerp( ( ( _LowerLightTransmission * ase_lightColor ) * _BottomColor ) , ( ( _UpperLightTransmission * ase_lightColor ) * _TopColor ) , SunDirection39);
-			o.Emission = ( tex2DNode45 * lerpResult46 ).rgb;
-			o.Alpha = 1;
-		}
 
-		ENDCG
-	}
-	Fallback "Diffuse"
-	CustomEditor "ASEMaterialInspector"
+        void vertexDataFunc(inout appdata_full v, out Input o)
+        {
+                UNITY_INITIALIZE_OUTPUT(Input, o);
+            float3 ase_vertex3Pos = v.vertex.xyz;
+            float3 break88 = ase_vertex3Pos;
+            float3 appendResult89 = (float3(break88.x, 0.0, break88.z));
+            float4 transform90 = mul(unity_ObjectToWorld, float4(0, 0, 0, 1));
+            float4 appendResult71 = (float4(v.color.b, v.color.r, v.color.g, v.color.a));
+            float4 normalizeResult11_g30 = normalize(appendResult71);
+            float3 hsvTorgb22_g30 = RGBToHSV(normalizeResult11_g30.rgb);
+            float2 appendResult3_g30 = (float2((_NoiseSpeed * _Time.y),
+                ((transform90 * float4(0.5, 0.5, 0.5, 0)).x + (hsvTorgb22_g30.x * 100.0))));
+            float simplePerlin2D4_g30 = snoise(appendResult3_g30 * _NoiseScale);
+            float4 normalizeResult11_g29 = normalize(v.color);
+            float3 hsvTorgb22_g29 = RGBToHSV(normalizeResult11_g29.rgb);
+            float2 appendResult3_g29 = (float2((_NoiseSpeed * _Time.y), (transform90.x + (hsvTorgb22_g29.x * 100.0))));
+            float simplePerlin2D4_g29 = snoise(appendResult3_g29 * _NoiseScale);
+            float3 rotatedValue24 = RotateAroundAxis(float3(0, 0, 0), ase_vertex3Pos, normalize(float3(0, 1, 0)),
+                                              ((simplePerlin2D4_g29 / 2.0) * _SwayAmount));
+            float3 SubtleWind92 = ((float3(0, 1, 0) * distance(appendResult89, float3(0, 0, 0)) * _BounceAmount * (
+                simplePerlin2D4_g30 / 2.0)) + (rotatedValue24 - ase_vertex3Pos));
+            float4 transform104 = mul(unity_ObjectToWorld, float4(0, 0, 0, 1));
+            float2 appendResult100 = (float2(transform104.x, transform104.z));
+            float simplePerlin2D91 = snoise((abs(appendResult100) + (_Time.y * _MainWindSpeed)) * _MainWindScale);
+            simplePerlin2D91 = simplePerlin2D91 * 0.5 + 0.5;
+            v.vertex.xyz += (SubtleWind92 * simplePerlin2D91);
+            v.vertex.w = 1;
+        }
+
+        void surf(Input i, inout SurfaceOutputStandard o)
+        {
+            float2 uv_Texture = i.uv_texcoord * _Texture_ST.xy + _Texture_ST.zw;
+            float4 tex2DNode45 = tex2D(_Texture, uv_Texture);
+            clip(tex2DNode45.a - _AlphaClip);
+            float3 ase_vertex3Pos = mul(unity_WorldToObject, float4(i.worldPos, 1));
+            float clampResult33 = clamp(((ase_vertex3Pos.y - _GradientOffset) * _GradientSmoothness), 0.0, 1.0);
+            float SunDirection39 = clampResult33;
+            float4 lerpResult48 = lerp(_BottomColor, _TopColor, SunDirection39);
+            o.Albedo = (tex2DNode45 * lerpResult48).rgb;
+            #if defined(LIGHTMAP_ON) && ( UNITY_VERSION < 560 || ( defined(LIGHTMAP_SHADOW_MIXING) && !defined(SHADOWS_SHADOWMASK) && defined(SHADOWS_SCREEN) ) )//aselc
+
+            float4 ase_lightColor = 0;
+            #else //aselc
+            float4 ase_lightColor = _LightColor0;
+            #endif //aselc
+            float4 lerpResult46 = lerp(((_LowerLightTransmission * ase_lightColor) * _BottomColor),
+                                       ((_UpperLightTransmission * ase_lightColor) * _TopColor), SunDirection39);
+            o.Emission = (tex2DNode45 * lerpResult46).rgb;
+            o.Alpha = 1;
+        }
+        ENDCG
+    }
+    Fallback "Diffuse"
+    CustomEditor "ASEMaterialInspector"
 }
 /*ASEBEGIN
 Version=18912

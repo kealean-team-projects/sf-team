@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace PrimeTweenDemo {
     public class Headlights : Animatable {
-        [SerializeField] AnimationCurve ease;
-        [SerializeField] Light[] lights;
-        bool isOn;
+        [SerializeField] private AnimationCurve ease;
+        [SerializeField] private Light[] lights;
+        private bool isOn;
 
         public override void OnClick() {
             Animate(!isOn);
@@ -15,9 +15,7 @@ namespace PrimeTweenDemo {
         public override Sequence Animate(bool _isOn) {
             isOn = _isOn;
             var sequence = Sequence.Create();
-            foreach (var _light in lights) {
-                sequence.Group(Tween.LightIntensity(_light, _isOn ? 0.7f : 0, 0.8f, ease));
-            }
+            foreach (var _light in lights) sequence.Group(Tween.LightIntensity(_light, _isOn ? 0.7f : 0, 0.8f, ease));
             return sequence;
         }
     }

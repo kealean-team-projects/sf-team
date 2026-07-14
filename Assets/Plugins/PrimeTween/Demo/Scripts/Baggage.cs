@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace PrimeTweenDemo {
     public class Baggage : Animatable {
-        [SerializeField] Transform animationAnchor;
-        Sequence sequence;
+        [SerializeField] private Transform animationAnchor;
+        private Sequence sequence;
 
         public override void OnClick() {
             PlayFlipAnimation();
@@ -15,14 +15,16 @@ namespace PrimeTweenDemo {
             return PlayFlipAnimation();
         }
 
-        Sequence PlayFlipAnimation() {
+        private Sequence PlayFlipAnimation() {
             if (!sequence.isAlive) {
                 const float jumpDuration = 0.3f;
                 sequence = Sequence.Create()
                     .Chain(Tween.LocalPositionZ(animationAnchor, 0.2f, jumpDuration))
-                    .Chain(Tween.LocalEulerAngles(animationAnchor, Vector3.zero, new Vector3(0, 360, 0), 0.9f, Ease.InOutBack))
+                    .Chain(Tween.LocalEulerAngles(animationAnchor, Vector3.zero, new Vector3(0, 360, 0), 0.9f,
+                        Ease.InOutBack))
                     .Chain(Tween.LocalPositionZ(animationAnchor, 0, jumpDuration));
             }
+
             return sequence;
         }
     }

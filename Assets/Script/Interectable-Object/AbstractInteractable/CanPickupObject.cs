@@ -1,4 +1,3 @@
-using System;
 using Script.Players.Components;
 using UnityEngine;
 
@@ -14,11 +13,13 @@ namespace Script.Interectable_Object.AbstractInteractable
         {
             _rb = GetComponent<Rigidbody>();
         }
+        private void FixedUpdate() {
+            if (!_isInHand) return;
+            transform.position = _handPos.position;
+        }
 
-        public void Interact(InteractManager owner)
-        {
-            if (_isInHand)
-            {
+        public void Interact(InteractManager owner) {
+            if (_isInHand) {
                 _isInHand = false;
                 _rb.useGravity = true;
                 return;
@@ -27,12 +28,6 @@ namespace Script.Interectable_Object.AbstractInteractable
             _handPos = owner.HandPos;
             _rb.useGravity = false;
             _isInHand = true;
-        }
-
-        private void FixedUpdate()
-        {
-            if (!_isInHand) return;
-            transform.position = _handPos.position;
         }
     }
 }

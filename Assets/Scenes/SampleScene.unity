@@ -295,7 +295,7 @@ MonoBehaviour:
   interactor: {fileID: 837942092}
   speed: 15.2
   jumpPow: 2.54
-  cali: {x: 0, y: -1.2, z: 0}
+  cali: {x: 0, y: -1.03, z: 0}
   middle: {x: 1.28, y: 0.1, z: 0.47}
   whatIsGround:
     serializedVersion: 2
@@ -686,6 +686,7 @@ MonoBehaviour:
     m_Bits: 64
   debug: 1
   bufferSize: 5
+  <HandPos>k__BackingField: {fileID: 0}
   showInteractable: 0
 --- !u!1 &1826812442
 GameObject:

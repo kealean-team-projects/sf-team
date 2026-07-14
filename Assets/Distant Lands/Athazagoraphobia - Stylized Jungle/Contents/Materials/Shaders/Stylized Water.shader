@@ -2,199 +2,225 @@
 // Available at the Unity Asset Store - http://u3d.as/y3X 
 Shader "Distant Lands/Stlylized Water"
 {
-	Properties
-	{
-		_SurfaceColor("Surface Color", Color) = (0,0,0,0)
-		_WaterNormals("Water Normals", 2D) = "bump" {}
-		_NormalDepth("Normal Depth", Float) = 0
-		_DepthColor("Depth Color", Color) = (0,0,0,0)
-		_AbsorptionStrength("Absorption Strength", Range( 0 , 10)) = 0
-		_Murkiness("Murkiness", Range( 0 , 10)) = 0
-		_FoamColor("Foam Color", Color) = (1,1,1,0)
-		_Distortion("Distortion", Float) = 0.5
-		_FoamScale("Foam Scale", Float) = 10
-		_CausticScale("Caustic Scale", Float) = 0
-		_CrestScale("Crest Scale", Float) = 0
-		_CausticTexture("Caustic Texture", 2D) = "white" {}
-		_WaveCrest("Wave Crest", 2D) = "white" {}
-		_FoamScrollSpeed("Foam Scroll Speed", Float) = 1
-		_CausticSpeed("Caustic Speed", Float) = 0
-		_WaveColor("Wave Color", Color) = (0,0,0,0)
-		_WaveCrestIntensity("Wave Crest Intensity", Range( 0 , 1)) = 0
-		_CrestSpeed("Crest Speed", Float) = 0
-		_CausticIntensity("Caustic Intensity", Float) = 0
-		_FoamIntensity("Foam Intensity", Float) = 1
-		_NormalScale("Normal Scale", Float) = 1
-		[HideInInspector] __dirty( "", Int ) = 1
-	}
+    Properties
+    {
+        _SurfaceColor("Surface Color", Color) = (0,0,0,0)
+        _WaterNormals("Water Normals", 2D) = "bump" {}
+        _NormalDepth("Normal Depth", Float) = 0
+        _DepthColor("Depth Color", Color) = (0,0,0,0)
+        _AbsorptionStrength("Absorption Strength", Range( 0 , 10)) = 0
+        _Murkiness("Murkiness", Range( 0 , 10)) = 0
+        _FoamColor("Foam Color", Color) = (1,1,1,0)
+        _Distortion("Distortion", Float) = 0.5
+        _FoamScale("Foam Scale", Float) = 10
+        _CausticScale("Caustic Scale", Float) = 0
+        _CrestScale("Crest Scale", Float) = 0
+        _CausticTexture("Caustic Texture", 2D) = "white" {}
+        _WaveCrest("Wave Crest", 2D) = "white" {}
+        _FoamScrollSpeed("Foam Scroll Speed", Float) = 1
+        _CausticSpeed("Caustic Speed", Float) = 0
+        _WaveColor("Wave Color", Color) = (0,0,0,0)
+        _WaveCrestIntensity("Wave Crest Intensity", Range( 0 , 1)) = 0
+        _CrestSpeed("Crest Speed", Float) = 0
+        _CausticIntensity("Caustic Intensity", Float) = 0
+        _FoamIntensity("Foam Intensity", Float) = 1
+        _NormalScale("Normal Scale", Float) = 1
+        [HideInInspector] __dirty( "", Int ) = 1
+    }
 
-	SubShader
-	{
-		Tags{ "RenderType" = "Opaque"  "Queue" = "AlphaTest+100" "IgnoreProjector" = "True" "ForceNoShadowCasting" = "True" }
-		Cull Back
-		ZWrite On
-		GrabPass{ }
-		CGPROGRAM
-		#include "UnityStandardUtils.cginc"
-		#include "UnityShaderVariables.cginc"
-		#include "UnityCG.cginc"
-		#pragma target 3.0
-		#if defined(UNITY_STEREO_INSTANCING_ENABLED) || defined(UNITY_STEREO_MULTIVIEW_ENABLED)
-		#define ASE_DECLARE_SCREENSPACE_TEXTURE(tex) UNITY_DECLARE_SCREENSPACE_TEXTURE(tex);
-		#else
-		#define ASE_DECLARE_SCREENSPACE_TEXTURE(tex) UNITY_DECLARE_SCREENSPACE_TEXTURE(tex)
-		#endif
-		#pragma surface surf Standard keepalpha exclude_path:deferred 
-		struct Input
-		{
-			float3 worldPos;
-			float4 screenPos;
-		};
+    SubShader
+    {
+        Tags
+        {
+            "RenderType" = "Opaque" "Queue" = "AlphaTest+100" "IgnoreProjector" = "True" "ForceNoShadowCasting" = "True"
+        }
+        Cull Back
+        ZWrite On
+        GrabPass {}
+        CGPROGRAM
+        #include "UnityStandardUtils.cginc"
+        #include "UnityShaderVariables.cginc"
+        #include "UnityCG.cginc"
+        #pragma target 3.0
+        #if defined(UNITY_STEREO_INSTANCING_ENABLED) || defined(UNITY_STEREO_MULTIVIEW_ENABLED)
+        #define ASE_DECLARE_SCREENSPACE_TEXTURE(tex) UNITY_DECLARE_SCREENSPACE_TEXTURE(tex);
+        #else
+        #define ASE_DECLARE_SCREENSPACE_TEXTURE(tex) UNITY_DECLARE_SCREENSPACE_TEXTURE(tex)
+        #endif
+        #pragma surface surf Standard keepalpha exclude_path:deferred
+        struct Input
+        {
+            float3 worldPos;
+            float4 screenPos;
+        };
 
-		uniform sampler2D _WaterNormals;
-		uniform float _NormalScale;
-		uniform float _NormalDepth;
-		UNITY_DECLARE_DEPTH_TEXTURE( _CameraDepthTexture );
-		uniform float4 _CameraDepthTexture_TexelSize;
-		uniform float4 _DepthColor;
-		uniform float4 _WaveColor;
-		uniform sampler2D _WaveCrest;
-		uniform float _CrestSpeed;
-		uniform float _CrestScale;
-		uniform float _WaveCrestIntensity;
-		ASE_DECLARE_SCREENSPACE_TEXTURE( _GrabTexture )
-		uniform float _Distortion;
-		uniform float _AbsorptionStrength;
-		uniform float4 _SurfaceColor;
-		uniform sampler2D _CausticTexture;
-		uniform float _CausticSpeed;
-		uniform float _CausticScale;
-		uniform float _CausticIntensity;
-		uniform float _Murkiness;
-		uniform float4 _FoamColor;
-		uniform float _FoamScrollSpeed;
-		uniform float _FoamScale;
-		uniform float _FoamIntensity;
-
-
-		inline float4 ASE_ComputeGrabScreenPos( float4 pos )
-		{
-			#if UNITY_UV_STARTS_AT_TOP
-			float scale = -1.0;
-			#else
-			float scale = 1.0;
-			#endif
-			float4 o = pos;
-			o.y = pos.w * 0.5f;
-			o.y = ( pos.y - o.y ) * _ProjectionParams.x * scale + o.y;
-			return o;
-		}
+        uniform sampler2D _WaterNormals;
+        uniform float _NormalScale;
+        uniform float _NormalDepth;
+        UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
+        uniform float4 _CameraDepthTexture_TexelSize;
+        uniform float4 _DepthColor;
+        uniform float4 _WaveColor;
+        uniform sampler2D _WaveCrest;
+        uniform float _CrestSpeed;
+        uniform float _CrestScale;
+        uniform float _WaveCrestIntensity;
+        ASE_DECLARE_SCREENSPACE_TEXTURE(_GrabTexture)
+        uniform float _Distortion;
+        uniform float _AbsorptionStrength;
+        uniform float4 _SurfaceColor;
+        uniform sampler2D _CausticTexture;
+        uniform float _CausticSpeed;
+        uniform float _CausticScale;
+        uniform float _CausticIntensity;
+        uniform float _Murkiness;
+        uniform float4 _FoamColor;
+        uniform float _FoamScrollSpeed;
+        uniform float _FoamScale;
+        uniform float _FoamIntensity;
 
 
-		float3 mod3D289( float3 x ) { return x - floor( x / 289.0 ) * 289.0; }
-
-		float4 mod3D289( float4 x ) { return x - floor( x / 289.0 ) * 289.0; }
-
-		float4 permute( float4 x ) { return mod3D289( ( x * 34.0 + 1.0 ) * x ); }
-
-		float4 taylorInvSqrt( float4 r ) { return 1.79284291400159 - r * 0.85373472095314; }
-
-		float snoise( float3 v )
-		{
-			const float2 C = float2( 1.0 / 6.0, 1.0 / 3.0 );
-			float3 i = floor( v + dot( v, C.yyy ) );
-			float3 x0 = v - i + dot( i, C.xxx );
-			float3 g = step( x0.yzx, x0.xyz );
-			float3 l = 1.0 - g;
-			float3 i1 = min( g.xyz, l.zxy );
-			float3 i2 = max( g.xyz, l.zxy );
-			float3 x1 = x0 - i1 + C.xxx;
-			float3 x2 = x0 - i2 + C.yyy;
-			float3 x3 = x0 - 0.5;
-			i = mod3D289( i);
-			float4 p = permute( permute( permute( i.z + float4( 0.0, i1.z, i2.z, 1.0 ) ) + i.y + float4( 0.0, i1.y, i2.y, 1.0 ) ) + i.x + float4( 0.0, i1.x, i2.x, 1.0 ) );
-			float4 j = p - 49.0 * floor( p / 49.0 );  // mod(p,7*7)
-			float4 x_ = floor( j / 7.0 );
-			float4 y_ = floor( j - 7.0 * x_ );  // mod(j,N)
-			float4 x = ( x_ * 2.0 + 0.5 ) / 7.0 - 1.0;
-			float4 y = ( y_ * 2.0 + 0.5 ) / 7.0 - 1.0;
-			float4 h = 1.0 - abs( x ) - abs( y );
-			float4 b0 = float4( x.xy, y.xy );
-			float4 b1 = float4( x.zw, y.zw );
-			float4 s0 = floor( b0 ) * 2.0 + 1.0;
-			float4 s1 = floor( b1 ) * 2.0 + 1.0;
-			float4 sh = -step( h, 0.0 );
-			float4 a0 = b0.xzyw + s0.xzyw * sh.xxyy;
-			float4 a1 = b1.xzyw + s1.xzyw * sh.zzww;
-			float3 g0 = float3( a0.xy, h.x );
-			float3 g1 = float3( a0.zw, h.y );
-			float3 g2 = float3( a1.xy, h.z );
-			float3 g3 = float3( a1.zw, h.w );
-			float4 norm = taylorInvSqrt( float4( dot( g0, g0 ), dot( g1, g1 ), dot( g2, g2 ), dot( g3, g3 ) ) );
-			g0 *= norm.x;
-			g1 *= norm.y;
-			g2 *= norm.z;
-			g3 *= norm.w;
-			float4 m = max( 0.6 - float4( dot( x0, x0 ), dot( x1, x1 ), dot( x2, x2 ), dot( x3, x3 ) ), 0.0 );
-			m = m* m;
-			m = m* m;
-			float4 px = float4( dot( x0, g0 ), dot( x1, g1 ), dot( x2, g2 ), dot( x3, g3 ) );
-			return 42.0 * dot( m, px);
-		}
+        inline float4 ASE_ComputeGrabScreenPos(float4 pos)
+        {
+            #if UNITY_UV_STARTS_AT_TOP
+            float scale = -1.0;
+            #else
+            float scale = 1.0;
+            #endif
+            float4 o = pos;
+            o.y = pos.w * 0.5f;
+            o.y = (pos.y - o.y) * _ProjectionParams.x * scale + o.y;
+            return o;
+        }
 
 
-		void surf( Input i , inout SurfaceOutputStandard o )
-		{
-			float3 ase_worldPos = i.worldPos;
-			float2 appendResult374 = (float2(ase_worldPos.x , ase_worldPos.z));
-			float temp_output_377_0 = ( 1.0 / _NormalScale );
-			float2 panner368 = ( 1.0 * _Time.y * float2( -0.03,0 ) + (appendResult374*temp_output_377_0 + 0.0));
-			float4 ase_screenPos = float4( i.screenPos.xyz , i.screenPos.w + 0.00000000001 );
-			float4 ase_screenPosNorm = ase_screenPos / ase_screenPos.w;
-			ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-			float screenDepth392 = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE( _CameraDepthTexture, ase_screenPosNorm.xy ));
-			float distanceDepth392 = abs( ( screenDepth392 - LinearEyeDepth( ase_screenPosNorm.z ) ) / ( 1.0 ) );
-			float lerpResult391 = lerp( _NormalDepth , 0.0 , saturate( ( 1.0 - ( _NormalScale * 0.03 * distanceDepth392 ) ) ));
-			float2 panner369 = ( 1.0 * _Time.y * float2( 0.04,0.04 ) + (appendResult374*( temp_output_377_0 * 3.0 ) + 0.0));
-			float3 depthNormals385 = BlendNormals( UnpackScaleNormal( tex2D( _WaterNormals, panner368 ), lerpResult391 ) , UnpackScaleNormal( tex2D( _WaterNormals, panner369 ), lerpResult391 ) );
-			o.Normal = depthNormals385;
-			float2 temp_output_350_0 = (ase_worldPos).xz;
-			float2 panner101 = ( 1.0 * _Time.y * ( float2( -1,1 ) * float2( 1,1 ) * _CrestSpeed ) + temp_output_350_0);
-			float temp_output_100_0 = ( 0.01 / _CrestScale );
-			float2 panner108 = ( 1.0 * _Time.y * ( float2( 1.5,-0.5 ) * float2( 1,1 ) * _CrestSpeed ) + temp_output_350_0);
-			float4 ase_grabScreenPos = ASE_ComputeGrabScreenPos( ase_screenPos );
-			float4 ase_grabScreenPosNorm = ase_grabScreenPos / ase_grabScreenPos.w;
-			float screenDepth14 = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE( _CameraDepthTexture, ase_screenPosNorm.xy ));
-			float distanceDepth14 = abs( ( screenDepth14 - LinearEyeDepth( ase_screenPosNorm.z ) ) / ( 1.0 ) );
-			float temp_output_8_0 = exp2( ( distanceDepth14 * -_AbsorptionStrength ) );
-			float temp_output_11_0 = ( 1.0 - temp_output_8_0 );
-			float4 screenColor1 = UNITY_SAMPLE_SCREENSPACE_TEXTURE(_GrabTexture,( float3( (ase_grabScreenPosNorm).xy ,  0.0 ) + ( depthNormals385 * _Distortion * temp_output_11_0 ) ).xy);
-			float2 temp_output_358_0 = (ase_worldPos).xz;
-			float2 panner145 = ( 1.0 * _Time.y * ( float2( -0.2,0 ) * float2( 15,15 ) * _CausticSpeed ) + temp_output_358_0);
-			float temp_output_142_0 = ( 1.0 / _CausticScale );
-			float2 panner146 = ( 1.0 * _Time.y * ( float2( 0.2,-0.1 ) * float2( 15,15 ) * _CausticSpeed ) + temp_output_358_0);
-			#if defined(LIGHTMAP_ON) && ( UNITY_VERSION < 560 || ( defined(LIGHTMAP_SHADOW_MIXING) && !defined(SHADOWS_SHADOWMASK) && defined(SHADOWS_SCREEN) ) )//aselc
-			float4 ase_lightColor = 0;
-			#else //aselc
-			float4 ase_lightColor = _LightColor0;
-			#endif //aselc
-			float clampResult19 = clamp( ( temp_output_8_0 / _Murkiness ) , 0.0 , 1.0 );
-			float4 lerpResult17 = lerp( ( _DepthColor + ( _WaveColor * ( min( tex2D( _WaveCrest, (panner101*temp_output_100_0 + 0.0) ) , tex2D( _WaveCrest, (panner108*( 4.0 * temp_output_100_0 ) + 0.0) ) ).r > ( 1.0 - _WaveCrestIntensity ) ? 1.0 : 0.0 ) ) ) , ( ( screenColor1 - ( ( 1.0 - _SurfaceColor ) * temp_output_11_0 ) ) + ( min( tex2D( _CausticTexture, (panner145*( temp_output_142_0 * 0.01 ) + 0.0) ) , tex2D( _CausticTexture, (panner146*( temp_output_142_0 * 0.02 ) + 0.0) ) ) * _CausticIntensity * ase_lightColor ) ) , clampResult19);
-			float temp_output_203_0 = ( ( 0.1 / _FoamScale ) * 2.0 );
-			float simplePerlin3D196 = snoise( float3( ( (ase_worldPos).xz + ( _Time.y * float2( -1,1 ) * _FoamScrollSpeed ) ) ,  0.0 )*temp_output_203_0 );
-			simplePerlin3D196 = simplePerlin3D196*0.5 + 0.5;
-			float simplePerlin3D209 = snoise( float3( ( (ase_worldPos).xz + ( _Time.y * _FoamScrollSpeed * float2( 1.5,-0.5 ) ) ) ,  0.0 )*( temp_output_203_0 * 2.0 ) );
-			simplePerlin3D209 = simplePerlin3D209*0.5 + 0.5;
-			float4 lerpResult364 = lerp( lerpResult17 , _FoamColor , ( ( 1.0 * min( simplePerlin3D196 , simplePerlin3D209 ) * _FoamIntensity ) > ( 1.0 - temp_output_8_0 ) ? 1.0 : 0.0 ));
-			o.Albedo = lerpResult364.rgb;
-			o.Smoothness = 1.0;
-			o.Alpha = 1;
-		}
+        float3 mod3D289(float3 x) { return x - floor(x / 289.0) * 289.0; }
 
-		ENDCG
-	}
-	Fallback "Diffuse"
-	CustomEditor "ASEMaterialInspector"
+        float4 mod3D289(float4 x) { return x - floor(x / 289.0) * 289.0; }
+
+        float4 permute(float4 x) { return mod3D289((x * 34.0 + 1.0) * x); }
+
+        float4 taylorInvSqrt(float4 r) { return 1.79284291400159 - r * 0.85373472095314; }
+
+        float snoise(float3 v)
+        {
+            const float2 C = float2(1.0 / 6.0, 1.0 / 3.0);
+            float3 i = floor(v + dot(v, C.yyy));
+            float3 x0 = v - i + dot(i, C.xxx);
+            float3 g = step(x0.yzx, x0.xyz);
+            float3 l = 1.0 - g;
+            float3 i1 = min(g.xyz, l.zxy);
+            float3 i2 = max(g.xyz, l.zxy);
+            float3 x1 = x0 - i1 + C.xxx;
+            float3 x2 = x0 - i2 + C.yyy;
+            float3 x3 = x0 - 0.5;
+            i = mod3D289(i);
+            float4 p = permute(
+                permute(permute(i.z + float4(0.0, i1.z, i2.z, 1.0)) + i.y + float4(0.0, i1.y, i2.y, 1.0)) + i.x +
+                float4(0.0, i1.x, i2.x, 1.0));
+            float4 j = p - 49.0 * floor(p / 49.0); // mod(p,7*7)
+            float4 x_ = floor(j / 7.0);
+            float4 y_ = floor(j - 7.0 * x_); // mod(j,N)
+            float4 x = (x_ * 2.0 + 0.5) / 7.0 - 1.0;
+            float4 y = (y_ * 2.0 + 0.5) / 7.0 - 1.0;
+            float4 h = 1.0 - abs(x) - abs(y);
+            float4 b0 = float4(x.xy, y.xy);
+            float4 b1 = float4(x.zw, y.zw);
+            float4 s0 = floor(b0) * 2.0 + 1.0;
+            float4 s1 = floor(b1) * 2.0 + 1.0;
+            float4 sh = -step(h, 0.0);
+            float4 a0 = b0.xzyw + s0.xzyw * sh.xxyy;
+            float4 a1 = b1.xzyw + s1.xzyw * sh.zzww;
+            float3 g0 = float3(a0.xy, h.x);
+            float3 g1 = float3(a0.zw, h.y);
+            float3 g2 = float3(a1.xy, h.z);
+            float3 g3 = float3(a1.zw, h.w);
+            float4 norm = taylorInvSqrt(float4(dot(g0, g0), dot(g1, g1), dot(g2, g2), dot(g3, g3)));
+            g0 *= norm.x;
+            g1 *= norm.y;
+            g2 *= norm.z;
+            g3 *= norm.w;
+            float4 m = max(0.6 - float4(dot(x0, x0), dot(x1, x1), dot(x2, x2), dot(x3, x3)), 0.0);
+            m = m * m;
+            m = m * m;
+            float4 px = float4(dot(x0, g0), dot(x1, g1), dot(x2, g2), dot(x3, g3));
+            return 42.0 * dot(m, px);
+        }
+
+
+        void surf(Input i, inout SurfaceOutputStandard o)
+        {
+            float3 ase_worldPos = i.worldPos;
+            float2 appendResult374 = (float2(ase_worldPos.x, ase_worldPos.z));
+            float temp_output_377_0 = (1.0 / _NormalScale);
+            float2 panner368 = (1.0 * _Time.y * float2(-0.03, 0) + (appendResult374 * temp_output_377_0 + 0.0));
+            float4 ase_screenPos = float4(i.screenPos.xyz, i.screenPos.w + 0.00000000001);
+            float4 ase_screenPosNorm = ase_screenPos / ase_screenPos.w;
+            ase_screenPosNorm.z = (UNITY_NEAR_CLIP_VALUE >= 0) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
+            float screenDepth392 = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, ase_screenPosNorm.xy));
+            float distanceDepth392 = abs((screenDepth392 - LinearEyeDepth(ase_screenPosNorm.z)) / (1.0));
+            float lerpResult391 = lerp(_NormalDepth, 0.0, saturate((1.0 - (_NormalScale * 0.03 * distanceDepth392))));
+            float2 panner369 = (1.0 * _Time.y * float2(0.04, 0.04) + (appendResult374 * (temp_output_377_0 * 3.0) +
+                0.0));
+            float3 depthNormals385 = BlendNormals(UnpackScaleNormal(tex2D(_WaterNormals, panner368), lerpResult391),
+                UnpackScaleNormal(tex2D(_WaterNormals, panner369), lerpResult391));
+            o.Normal = depthNormals385;
+            float2 temp_output_350_0 = (ase_worldPos).xz;
+            float2 panner101 = (1.0 * _Time.y * (float2(-1, 1) * float2(1, 1) * _CrestSpeed) + temp_output_350_0);
+            float temp_output_100_0 = (0.01 / _CrestScale);
+            float2 panner108 = (1.0 * _Time.y * (float2(1.5, -0.5) * float2(1, 1) * _CrestSpeed) + temp_output_350_0);
+            float4 ase_grabScreenPos = ASE_ComputeGrabScreenPos(ase_screenPos);
+            float4 ase_grabScreenPosNorm = ase_grabScreenPos / ase_grabScreenPos.w;
+            float screenDepth14 = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, ase_screenPosNorm.xy));
+            float distanceDepth14 = abs((screenDepth14 - LinearEyeDepth(ase_screenPosNorm.z)) / (1.0));
+            float temp_output_8_0 = exp2((distanceDepth14 * -_AbsorptionStrength));
+            float temp_output_11_0 = (1.0 - temp_output_8_0);
+            float4 screenColor1 = UNITY_SAMPLE_SCREENSPACE_TEXTURE(_GrabTexture,
+                                  ( float3( (ase_grabScreenPosNorm).xy , 0.0 ) + ( depthNormals385 * _Distortion *
+                                      temp_output_11_0 ) ).xy);
+            float2 temp_output_358_0 = (ase_worldPos).xz;
+            float2 panner145 = (1.0 * _Time.y * (float2(-0.2, 0) * float2(15, 15) * _CausticSpeed) + temp_output_358_0);
+            float temp_output_142_0 = (1.0 / _CausticScale);
+            float2 panner146 = (1.0 * _Time.y * (float2(0.2, -0.1) * float2(15, 15) * _CausticSpeed) +
+                temp_output_358_0);
+            #if defined(LIGHTMAP_ON) && ( UNITY_VERSION < 560 || ( defined(LIGHTMAP_SHADOW_MIXING) && !defined(SHADOWS_SHADOWMASK) && defined(SHADOWS_SCREEN) ) )//aselc
+
+            float4 ase_lightColor = 0;
+            #else //aselc
+            float4 ase_lightColor = _LightColor0;
+            #endif //aselc
+            float clampResult19 = clamp((temp_output_8_0 / _Murkiness), 0.0, 1.0);
+            float4 lerpResult17 = lerp(
+                (_DepthColor + (_WaveColor * (
+                    min(tex2D(_WaveCrest, (panner101 * temp_output_100_0 + 0.0)),
+                        tex2D(_WaveCrest, (panner108 * (4.0 * temp_output_100_0) + 0.0))).r > (1.0 -
+                        _WaveCrestIntensity)
+                        ? 1.0
+                        : 0.0))), ((screenColor1 - ((1.0 - _SurfaceColor) * temp_output_11_0)) + (min(
+                        tex2D(_CausticTexture, (panner145 * (temp_output_142_0 * 0.01) + 0.0)),
+                        tex2D(_CausticTexture, (panner146 * (temp_output_142_0 * 0.02) + 0.0))) * _CausticIntensity *
+                    ase_lightColor)), clampResult19);
+            float temp_output_203_0 = ((0.1 / _FoamScale) * 2.0);
+            float simplePerlin3D196 = snoise(
+                float3(((ase_worldPos).xz + (_Time.y * float2(-1, 1) * _FoamScrollSpeed)), 0.0) * temp_output_203_0);
+            simplePerlin3D196 = simplePerlin3D196 * 0.5 + 0.5;
+            float simplePerlin3D209 = snoise(
+                float3(((ase_worldPos).xz + (_Time.y * _FoamScrollSpeed * float2(1.5, -0.5))), 0.0) * (temp_output_203_0
+                    * 2.0));
+            simplePerlin3D209 = simplePerlin3D209 * 0.5 + 0.5;
+            float4 lerpResult364 = lerp(lerpResult17, _FoamColor,
+                                        ((1.0 * min(simplePerlin3D196, simplePerlin3D209) * _FoamIntensity) > (1.0 -
+                                             temp_output_8_0)
+                                             ? 1.0
+                                             : 0.0));
+            o.Albedo = lerpResult364.rgb;
+            o.Smoothness = 1.0;
+            o.Alpha = 1;
+        }
+        ENDCG
+    }
+    Fallback "Diffuse"
+    CustomEditor "ASEMaterialInspector"
 }
 /*ASEBEGIN
 Version=18909
