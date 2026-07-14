@@ -35,7 +35,6 @@ namespace Script.Players.Components {
             Gizmos.DrawWireCube(Vector3.zero + new Vector3(xPos, yPos, zPos), BoxSize);
         }
 
-        [ContextMenu("afs")]
         public void Interact() {
             var count = Physics.OverlapBoxNonAlloc(BoxPos, BoxSize * 0.5f, _interactArray,
                 transform.rotation, whatIsTarget);
@@ -63,6 +62,11 @@ namespace Script.Players.Components {
 
             Debug.Log(4);
             closestInteractor.Interact(this);
+        }
+
+        public void SetHandItem(InteractableItemSO data)
+        {
+            InHandItem = data;
         }
     }
 }
