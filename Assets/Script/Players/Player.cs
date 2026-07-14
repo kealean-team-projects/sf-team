@@ -28,10 +28,11 @@ namespace Script.Players {
 
         private void FixedUpdate() {
             Vector3 moveDirUpdate =  _moveDir.x * transform.right + _moveDir.z * transform.forward;
-            var velocity = new Vector3();
-            velocity.y = rb.linearVelocity.y;
-            velocity.x = moveDirUpdate.x * speed;
-            velocity.z = moveDirUpdate.z * speed;
+            var velocity = new Vector3 {
+                y = rb.linearVelocity.y,
+                x = moveDirUpdate.x * speed,
+                z = moveDirUpdate.z * speed
+            };
             rb.linearVelocity = velocity;
 
             var jhit = Physics.OverlapBox(transform.position + cali, middle, Quaternion.identity, whatIsGround);

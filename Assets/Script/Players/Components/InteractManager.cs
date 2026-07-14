@@ -44,13 +44,12 @@ namespace Script.Players.Components {
             for (var i = 0; i < count; i++) {
                 var collider = _interactArray[i];
                 var rb = collider.attachedRigidbody;
-                if ((rb && rb.TryGetComponent<IInteractable>(out var interact)) ||
-                    collider.TryGetComponent(out interact)) {
-                    var currentDistance = (collider.transform.position - transform.position).sqrMagnitude;
-                    if (currentDistance >= distance) continue;
-                    distance = currentDistance;
-                    closestInteractor = interact;
-                }
+                if ((!rb || !rb.TryGetComponent<IInteractable>(out var interact)) &&
+                    !collider.TryGetComponent(out interact)) continue;
+                var currentDistance = (collider.transform.position - transform.position).sqrMagnitude;
+                if (currentDistance >= distance) continue;
+                distance = currentDistance;
+                closestInteractor = interact;
             }
 
             Debug.Log(3);
