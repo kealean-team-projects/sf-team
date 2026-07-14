@@ -49,16 +49,13 @@ namespace Script.Camera {
 #if !UNITY_EDITOR
         private void LockCursor(bool lockCursor)
         {
-            if (lockCursor)
-            {
-                Cursor.lockState = CursorLockMode.Locked;
+            switch (lockCursor){
+                case true:Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-            }
-
-            else
-            {
-                Cursor.lockState = CursorLockMode.None;
+                break;
+                case false:Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                break;
             }
         }
 #endif

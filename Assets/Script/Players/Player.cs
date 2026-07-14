@@ -20,7 +20,6 @@ namespace Script.Players {
             reader.OnMovePressed += OnMove;
             reader.OnJumpPressed += OnJump;
             reader.OnInteractPressed += OnInteract;
-            reader.OnMouseMoved += HandleSight;
         }
 
         private void Reset() {
@@ -28,10 +27,12 @@ namespace Script.Players {
         }
 
         private void FixedUpdate() {
-            var velocity = new Vector3();
-            velocity.y = rb.linearVelocity.y;
-            velocity.x = _moveDir.x * speed;
-            velocity.z = _moveDir.z * speed;
+            Vector3 moveDirUpdate =  _moveDir.x * transform.right + _moveDir.z * transform.forward;
+            var velocity = new Vector3 {
+                y = rb.linearVelocity.y,
+                x = moveDirUpdate.x * speed,
+                z = moveDirUpdate.z * speed
+            };
             rb.linearVelocity = velocity;
 
             var jhit = Physics.OverlapBox(transform.position + cali, middle, Quaternion.identity, whatIsGround);
@@ -57,11 +58,7 @@ namespace Script.Players {
         private void OnInteract() {
             interactor.Interact();
         }
-
-        private void HandleSight(Vector2 obj) {
-            Debug.Log(obj);
-        }
-
+        
         private void OnJump() {
             if (_arrowJump) rb.AddForce(Vector3.up * jumpPow, ForceMode.Impulse);
         }
