@@ -7,7 +7,6 @@ namespace Script.Camera
 {
     public class CameraTest : MonoBehaviour
     {
-        [SerializeField] private Transform playerTrm;
         [field: SerializeField] private PlayerInputReader input;
         [SerializeField] private Vector2 mouseDelta;
         [SerializeField] private float currentX;
@@ -17,9 +16,12 @@ namespace Script.Camera
 
         private bool lockCursor = true;
 
+        private UnityEngine.Camera camera;
+
         private void Awake()
         {
             input.OnMouseMoved += CameraInput;
+            camera = UnityEngine.Camera.main;
         }
 
         private void Update()
@@ -31,21 +33,20 @@ namespace Script.Camera
 
         private void LateUpdate()
         {
-            transform.position = playerTrm.position;
             if (lockCursor) RotateCam();
         }
 
         private void RotateCam()
         {
             currentX += mouseDelta.x * sensitivity;
-            currentY = mouseDelta.y * sensitivity;
+            currentY += mouseDelta.y * sensitivity;
 
             currentX = Mathf.Repeat(currentX, 360f);
             
             float newY = Mathf.Clamp(currentY, -rotationBoundary, rotationBoundary);
 
-            transform.localRotation = Quaternion.Euler(newY, 0, 0);
-            playerTrm.rotation = Quaternion.Euler(0, currentX, 0);
+            transform.localRotation = Quaternion.Euler(0, currentX, 0);
+            camera.transform.eulerAngles = new Vector3(-newY, currentX, 0);
         }
 
         private void CameraInput(Vector2 mousePos)
