@@ -292,8 +292,14 @@ MonoBehaviour:
   rb: {fileID: 70572746}
   reader: {fileID: 70572751}
   interactor: {fileID: 837942092}
+  sight: {fileID: 0}
   speed: 15.2
-  jumpPow: 0
+  jumpPow: 2.54
+  cali: {x: 0, y: 0, z: 0}
+  middle: {x: 0, y: 0, z: 0}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,6 +668,7 @@ MonoBehaviour:
     m_Bits: 64
   debug: 1
   bufferSize: 5
+  showInteractable: 0
 --- !u!1 &1826812442
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,7 +680,7 @@ GameObject:
   - component: {fileID: 1826812445}
   - component: {fileID: 1826812444}
   - component: {fileID: 1826812443}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
