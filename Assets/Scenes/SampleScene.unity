@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 70572746}
   - component: {fileID: 70572752}
   - component: {fileID: 70572751}
+  - component: {fileID: 70572753}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -293,7 +294,30 @@ MonoBehaviour:
   reader: {fileID: 70572751}
   interactor: {fileID: 837942092}
   speed: 15.2
-  jumpPow: 0
+  jumpPow: 2.54
+  cali: {x: 0, y: -1.2, z: 0}
+  middle: {x: 1.28, y: 0.1, z: 0.47}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!114 &70572753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70572745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 225afeda5dbd48ce9821e70353d040be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Script.Camera.CameraTest
+  input: {fileID: 70572751}
+  mouseDelta: {x: 0, y: 0}
+  currentX: 0
+  currentY: 0
+  rotationBoundary: 80
+  sensitivity: 1
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,6 +686,7 @@ MonoBehaviour:
     m_Bits: 64
   debug: 1
   bufferSize: 5
+  showInteractable: 0
 --- !u!1 &1826812442
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,7 +698,7 @@ GameObject:
   - component: {fileID: 1826812445}
   - component: {fileID: 1826812444}
   - component: {fileID: 1826812443}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}

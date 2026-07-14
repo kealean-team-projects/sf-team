@@ -11,7 +11,11 @@ namespace Script.Players {
         [SerializeField] private InteractManager interactor;
         [SerializeField] private float speed;
         [SerializeField] private float jumpPow;
-
+        [SerializeField] private Vector3 cali;
+        [SerializeField] private Vector3 middle;
+        [SerializeField] private LayerMask whatIsGround;
+        
+        private bool _arrowJump;
         private Vector3 _moveDir;
         
         private void Reset() {
@@ -22,7 +26,7 @@ namespace Script.Players {
             reader.OnMovePressed += OnMove;
             reader.OnJumpPressed += OnJump;
             reader.OnInteractPressed += OnInteract;
-            
+            reader.OnMouseMoved += HandleSight;
         }
 
 
@@ -36,9 +40,16 @@ namespace Script.Players {
         {
             interactor.Interact();
         }
+        
+        private void HandleSight(Vector2 obj)
+        {
+            Debug.Log(obj);
+        }
 
         private void OnJump() {
-            rb.AddForce(Vector3.up * jumpPow, ForceMode.Impulse);
+            if(_arrowJump) {
+                rb.AddForce(Vector3.up * jumpPow, ForceMode.Impulse);
+            }
         }
 
         private void OnMove(Vector3 obj) {
@@ -49,14 +60,21 @@ namespace Script.Players {
         {
             Vector3 velocity = new Vector3();
             velocity.y = rb.linearVelocity.y;
-            velocity.x = _moveDir.x * speed;
-            velocity.z = _moveDir.z * speed;
+            velocity = (transform.right * _moveDir.x + transform.forward * _moveDir.z) * speed;
             rb.linearVelocity = velocity;
+
+            var jhit = Physics.OverlapBox(transform.position + cali, middle, Quaternion.identity, whatIsGround);
+
+            _arrowJump = jhit.Length > 0;
 
             // if (new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z).sqrMagnitude < speed) {
             //     rb.AddForce(_moveDir * speed, ForceMode.Force);
             // }
 
+        }
+
+        private void OnDrawGizmos() {
+            Gizmos.DrawWireCube(transform.position + cali, middle);
         }
     }
 }
