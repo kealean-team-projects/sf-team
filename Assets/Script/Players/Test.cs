@@ -12,7 +12,11 @@ namespace Script.Players {
         [SerializeField] private PlayerSightController sight;
         [SerializeField] private float speed;
         [SerializeField] private float jumpPow;
-
+        [SerializeField] private Vector3 cali;
+        [SerializeField] private Vector3 middle;
+        [SerializeField] private LayerMask whatIsGround;
+        
+        private bool _arrowJump;
         private Vector3 _moveDir;
         
         private void Reset() {
@@ -45,7 +49,9 @@ namespace Script.Players {
         }
 
         private void OnJump() {
-            rb.AddForce(Vector3.up * jumpPow, ForceMode.Impulse);
+            if(_arrowJump) {
+                rb.AddForce(Vector3.up * jumpPow, ForceMode.Impulse);
+            }
         }
 
         private void OnMove(Vector3 obj) {
@@ -60,10 +66,18 @@ namespace Script.Players {
             velocity.z = _moveDir.z * speed;
             rb.linearVelocity = velocity;
 
+            var jhit = Physics.OverlapBox(transform.position + cali, middle, Quaternion.identity, whatIsGround);
+
+            _arrowJump = jhit.Length > 0;
+
             // if (new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z).sqrMagnitude < speed) {
             //     rb.AddForce(_moveDir * speed, ForceMode.Force);
             // }
 
+        }
+
+        private void OnDrawGizmos() {
+            Gizmos.DrawWireCube(transform.position + cali, middle);
         }
     }
 }
