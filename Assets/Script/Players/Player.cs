@@ -1,9 +1,11 @@
-﻿using Script.Players.Components;
+﻿using PrimeTween;
+using Script.Players.Components;
 using Script.Players.Components.Inputs;
+using Script.Players.Interface;
 using UnityEngine;
 
 namespace Script.Players {
-    public class Player : MonoBehaviour {
+    public class Player : MonoBehaviour, IPlayerSizeController {
         [SerializeField] private Rigidbody rb;
         [SerializeField] private PlayerInputReader reader;
         [SerializeField] private InteractManager interactor;
@@ -65,6 +67,13 @@ namespace Script.Players {
 
         private void OnMove(Vector3 obj) {
             _moveDir = obj;
+        }
+
+        public void SizeUp() {
+            Tween.Scale(transform, Vector3.one * 3, 0.5f, Ease.OutSine);
+        }
+        public void SizeDown() {
+            Tween.Scale(transform, Vector3.one, 0.5f, Ease.InSine);
         }
     }
 }
