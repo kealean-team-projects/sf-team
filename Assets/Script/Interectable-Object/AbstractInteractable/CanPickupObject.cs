@@ -3,8 +3,11 @@ using UnityEngine;
 
 namespace Script.Interectable_Object.AbstractInteractable
 {
+    [RequireComponent(typeof(Rigidbody))]
     public abstract class CanPickupObject : MonoBehaviour, IInteractable
     {
+        [field : SerializeField] public InteractableItemSO Item { get; private set; }
+        
         private Rigidbody _rb;
         private Transform _handPos;
         private bool _isInHand;
@@ -12,6 +15,7 @@ namespace Script.Interectable_Object.AbstractInteractable
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
+            Item.SetItem(this);
         }
         private void FixedUpdate() {
             if (!_isInHand) return;
