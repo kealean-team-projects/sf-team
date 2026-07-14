@@ -20,7 +20,6 @@ namespace Script.Players {
             reader.OnMovePressed += OnMove;
             reader.OnJumpPressed += OnJump;
             reader.OnInteractPressed += OnInteract;
-            reader.OnMouseMoved += HandleSight;
         }
 
         private void Reset() {
@@ -58,11 +57,7 @@ namespace Script.Players {
         private void OnInteract() {
             interactor.Interact();
         }
-
-        private void HandleSight(Vector2 obj) {
-            Debug.Log(obj);
-        }
-
+        
         private void OnJump() {
             if (_arrowJump) rb.AddForce(Vector3.up * jumpPow, ForceMode.Impulse);
         }
