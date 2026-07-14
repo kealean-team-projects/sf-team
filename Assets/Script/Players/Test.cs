@@ -9,7 +9,6 @@ namespace Script.Players {
         [SerializeField] private Rigidbody rb;
         [SerializeField] private PlayerInputReader reader;
         [SerializeField] private InteractManager interactor;
-        [SerializeField] private PlayerSightController sight;
         [SerializeField] private float speed;
         [SerializeField] private float jumpPow;
 
@@ -23,7 +22,6 @@ namespace Script.Players {
             reader.OnMovePressed += OnMove;
             reader.OnJumpPressed += OnJump;
             reader.OnInteractPressed += OnInteract;
-            reader.OnMouseMoved += HandleSight;
             
         }
 
@@ -32,11 +30,6 @@ namespace Script.Players {
             reader.OnMovePressed -= OnMove;
             reader.OnJumpPressed -= OnJump;
             reader.OnInteractPressed -= OnInteract;
-            reader.OnMouseMoved -= HandleSight;
-        }
-        private void HandleSight(Vector2 obj)
-        {
-            Debug.Log(obj);
         }
 
         private void OnInteract()
