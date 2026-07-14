@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PrimeTweenDemo {
     public abstract class Clickable : MonoBehaviour {
-        public virtual void OnClick() {}
+        public virtual void OnClick() { }
     }
 
     public abstract class Animatable : Clickable {

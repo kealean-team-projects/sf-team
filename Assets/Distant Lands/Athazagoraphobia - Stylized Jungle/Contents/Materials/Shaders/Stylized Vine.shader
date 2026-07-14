@@ -2,114 +2,117 @@
 // Available at the Unity Asset Store - http://u3d.as/y3X 
 Shader "Distant Lands/Stylized Vine"
 {
-	Properties
-	{
-		_MainColor("Main Color", Color) = (0.1626469,0.4056604,0.2259317,0)
-		_SecondaryColor("Secondary Color", Color) = (0.1626469,0.4056604,0.2259317,0)
-		_WindScale("Wind Scale", Float) = 50
-		_WindSpeed("Wind Speed", Float) = 50
-		_WindAmount("Wind Amount", Float) = 0.1
-		[HideInInspector] __dirty( "", Int ) = 1
-	}
+    Properties
+    {
+        _MainColor("Main Color", Color) = (0.1626469,0.4056604,0.2259317,0)
+        _SecondaryColor("Secondary Color", Color) = (0.1626469,0.4056604,0.2259317,0)
+        _WindScale("Wind Scale", Float) = 50
+        _WindSpeed("Wind Speed", Float) = 50
+        _WindAmount("Wind Amount", Float) = 0.1
+        [HideInInspector] __dirty( "", Int ) = 1
+    }
 
-	SubShader
-	{
-		Tags{ "RenderType" = "Opaque"  "Queue" = "Geometry+0" }
-		Cull Back
-		CGPROGRAM
-		#include "UnityShaderVariables.cginc"
-		#pragma target 3.0
-		#pragma surface surf Standard keepalpha addshadow fullforwardshadows vertex:vertexDataFunc 
-		struct Input
-		{
-			float3 worldPos;
-		};
+    SubShader
+    {
+        Tags
+        {
+            "RenderType" = "Opaque" "Queue" = "Geometry+0"
+        }
+        Cull Back
+        CGPROGRAM
+        #include "UnityShaderVariables.cginc"
+        #pragma target 3.0
+        #pragma surface surf Standard keepalpha addshadow fullforwardshadows vertex:vertexDataFunc
+        struct Input
+        {
+            float3 worldPos;
+        };
 
-		uniform float _WindAmount;
-		uniform float _WindSpeed;
-		uniform float _WindScale;
-		uniform float4 _MainColor;
-		uniform float4 _SecondaryColor;
-
-
-		float3 mod2D289( float3 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
-
-		float2 mod2D289( float2 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
-
-		float3 permute( float3 x ) { return mod2D289( ( ( x * 34.0 ) + 1.0 ) * x ); }
-
-		float snoise( float2 v )
-		{
-			const float4 C = float4( 0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439 );
-			float2 i = floor( v + dot( v, C.yy ) );
-			float2 x0 = v - i + dot( i, C.xx );
-			float2 i1;
-			i1 = ( x0.x > x0.y ) ? float2( 1.0, 0.0 ) : float2( 0.0, 1.0 );
-			float4 x12 = x0.xyxy + C.xxzz;
-			x12.xy -= i1;
-			i = mod2D289( i );
-			float3 p = permute( permute( i.y + float3( 0.0, i1.y, 1.0 ) ) + i.x + float3( 0.0, i1.x, 1.0 ) );
-			float3 m = max( 0.5 - float3( dot( x0, x0 ), dot( x12.xy, x12.xy ), dot( x12.zw, x12.zw ) ), 0.0 );
-			m = m * m;
-			m = m * m;
-			float3 x = 2.0 * frac( p * C.www ) - 1.0;
-			float3 h = abs( x ) - 0.5;
-			float3 ox = floor( x + 0.5 );
-			float3 a0 = x - ox;
-			m *= 1.79284291400159 - 0.85373472095314 * ( a0 * a0 + h * h );
-			float3 g;
-			g.x = a0.x * x0.x + h.x * x0.y;
-			g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-			return 130.0 * dot( m, g );
-		}
+        uniform float _WindAmount;
+        uniform float _WindSpeed;
+        uniform float _WindScale;
+        uniform float4 _MainColor;
+        uniform float4 _SecondaryColor;
 
 
-		float3 RotateAroundAxis( float3 center, float3 original, float3 u, float angle )
-		{
-			original -= center;
-			float C = cos( angle );
-			float S = sin( angle );
-			float t = 1 - C;
-			float m00 = t * u.x * u.x + C;
-			float m01 = t * u.x * u.y - S * u.z;
-			float m02 = t * u.x * u.z + S * u.y;
-			float m10 = t * u.x * u.y + S * u.z;
-			float m11 = t * u.y * u.y + C;
-			float m12 = t * u.y * u.z - S * u.x;
-			float m20 = t * u.x * u.z - S * u.y;
-			float m21 = t * u.y * u.z + S * u.x;
-			float m22 = t * u.z * u.z + C;
-			float3x3 finalMatrix = float3x3( m00, m01, m02, m10, m11, m12, m20, m21, m22 );
-			return mul( finalMatrix, original ) + center;
-		}
+        float3 mod2D289(float3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+
+        float2 mod2D289(float2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+
+        float3 permute(float3 x) { return mod2D289(((x * 34.0) + 1.0) * x); }
+
+        float snoise(float2 v)
+        {
+            const float4 C = float4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+            float2 i = floor(v + dot(v, C.yy));
+            float2 x0 = v - i + dot(i, C.xx);
+            float2 i1;
+            i1 = (x0.x > x0.y) ? float2(1.0, 0.0) : float2(0.0, 1.0);
+            float4 x12 = x0.xyxy + C.xxzz;
+            x12.xy -= i1;
+            i = mod2D289(i);
+            float3 p = permute(permute(i.y + float3(0.0, i1.y, 1.0)) + i.x + float3(0.0, i1.x, 1.0));
+            float3 m = max(0.5 - float3(dot(x0, x0), dot(x12.xy, x12.xy), dot(x12.zw, x12.zw)), 0.0);
+            m = m * m;
+            m = m * m;
+            float3 x = 2.0 * frac(p * C.www) - 1.0;
+            float3 h = abs(x) - 0.5;
+            float3 ox = floor(x + 0.5);
+            float3 a0 = x - ox;
+            m *= 1.79284291400159 - 0.85373472095314 * (a0 * a0 + h * h);
+            float3 g;
+            g.x = a0.x * x0.x + h.x * x0.y;
+            g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+            return 130.0 * dot(m, g);
+        }
 
 
-		void vertexDataFunc( inout appdata_full v, out Input o )
-		{
-			UNITY_INITIALIZE_OUTPUT( Input, o );
-			float4 transform17 = mul(unity_ObjectToWorld,float4( 0,0,0,1 ));
-			float2 appendResult13 = (float2(transform17.x , transform17.z));
-			float simplePerlin2D6 = snoise( ( ( _Time.y * _WindSpeed ) + appendResult13 )*( 1.0 / _WindScale ) );
-			float3 ase_vertex3Pos = v.vertex.xyz;
-			float temp_output_20_0 = abs( ase_vertex3Pos.y );
-			float3 rotatedValue3 = RotateAroundAxis( float3( 0,0,0 ), ase_vertex3Pos, normalize( float3( 0,0,1 ) ), ( _WindAmount * simplePerlin2D6 * temp_output_20_0 ) );
-			v.vertex.xyz += ( rotatedValue3 - ase_vertex3Pos );
-			v.vertex.w = 1;
-		}
+        float3 RotateAroundAxis(float3 center, float3 original, float3 u, float angle)
+        {
+            original -= center;
+            float C = cos(angle);
+            float S = sin(angle);
+            float t = 1 - C;
+            float m00 = t * u.x * u.x + C;
+            float m01 = t * u.x * u.y - S * u.z;
+            float m02 = t * u.x * u.z + S * u.y;
+            float m10 = t * u.x * u.y + S * u.z;
+            float m11 = t * u.y * u.y + C;
+            float m12 = t * u.y * u.z - S * u.x;
+            float m20 = t * u.x * u.z - S * u.y;
+            float m21 = t * u.y * u.z + S * u.x;
+            float m22 = t * u.z * u.z + C;
+            float3x3 finalMatrix = float3x3(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+            return mul(finalMatrix, original) + center;
+        }
 
-		void surf( Input i , inout SurfaceOutputStandard o )
-		{
-			float3 ase_vertex3Pos = mul( unity_WorldToObject, float4( i.worldPos , 1 ) );
-			float temp_output_20_0 = abs( ase_vertex3Pos.y );
-			float4 lerpResult19 = lerp( _MainColor , _SecondaryColor , saturate( temp_output_20_0 ));
-			o.Albedo = lerpResult19.rgb;
-			o.Alpha = 1;
-		}
 
-		ENDCG
-	}
-	Fallback "Diffuse"
-	CustomEditor "ASEMaterialInspector"
+        void vertexDataFunc(inout appdata_full v, out Input o)
+        {
+                UNITY_INITIALIZE_OUTPUT(Input, o);
+            float4 transform17 = mul(unity_ObjectToWorld, float4(0, 0, 0, 1));
+            float2 appendResult13 = (float2(transform17.x, transform17.z));
+            float simplePerlin2D6 = snoise(((_Time.y * _WindSpeed) + appendResult13) * (1.0 / _WindScale));
+            float3 ase_vertex3Pos = v.vertex.xyz;
+            float temp_output_20_0 = abs(ase_vertex3Pos.y);
+            float3 rotatedValue3 = RotateAroundAxis(float3(0, 0, 0), ase_vertex3Pos, normalize(float3(0, 0, 1)),
+                                                             (_WindAmount * simplePerlin2D6 * temp_output_20_0));
+            v.vertex.xyz += (rotatedValue3 - ase_vertex3Pos);
+            v.vertex.w = 1;
+        }
+
+        void surf(Input i, inout SurfaceOutputStandard o)
+        {
+            float3 ase_vertex3Pos = mul(unity_WorldToObject, float4(i.worldPos, 1));
+            float temp_output_20_0 = abs(ase_vertex3Pos.y);
+            float4 lerpResult19 = lerp(_MainColor, _SecondaryColor, saturate(temp_output_20_0));
+            o.Albedo = lerpResult19.rgb;
+            o.Alpha = 1;
+        }
+        ENDCG
+    }
+    Fallback "Diffuse"
+    CustomEditor "ASEMaterialInspector"
 }
 /*ASEBEGIN
 Version=18912

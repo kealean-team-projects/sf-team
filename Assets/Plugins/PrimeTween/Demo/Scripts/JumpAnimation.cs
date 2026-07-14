@@ -4,10 +4,12 @@ using UnityEngine;
 
 namespace PrimeTweenDemo {
     public class JumpAnimation : Clickable {
-        [SerializeField] Transform target;
-        Sequence sequence;
+        [SerializeField] private Transform target;
+        private Sequence sequence;
 
-        public override void OnClick() => PlayAnimation();
+        public override void OnClick() {
+            PlayAnimation();
+        }
 
         public void PlayAnimation() {
             if (!sequence.isAlive) {
