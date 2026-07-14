@@ -18,6 +18,7 @@ namespace Script.Players.Components
         [SerializeField] private LayerMask whatIsTarget;
         [SerializeField] private bool debug;
         [SerializeField] private int bufferSize;
+        [SerializeField] private bool showInteractable;
         
         private Vector3 BoxSize => new Vector3(xSize, ySize, zSize);
         private Vector3 BoxPos => transform.TransformPoint(new Vector3(xPos, yPos, zPos));

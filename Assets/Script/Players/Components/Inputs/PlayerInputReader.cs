@@ -3,8 +3,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Script.Players.Components.Inputs {
-    public class PlayerInputReader : MonoBehaviour, Controls.IPlayerActions {
+    public class PlayerInputReader : MonoBehaviour, Controls.IPlayerActions
+    {
         public event Action<Vector3> OnMovePressed;
+        public event Action<Vector2> OnMouseMoved; 
         public event Action OnJumpPressed;
         public event Action OnInteractPressed;
         private Controls _controls;
@@ -24,7 +26,7 @@ namespace Script.Players.Components.Inputs {
             OnMovePressed?.Invoke(context.ReadValue<Vector3>());
         }
         public void OnLook(InputAction.CallbackContext context) {
-            
+            OnMouseMoved?.Invoke(context.ReadValue<Vector2>());
         }
         public void OnInteract(InputAction.CallbackContext context) {
             if (context.performed)
