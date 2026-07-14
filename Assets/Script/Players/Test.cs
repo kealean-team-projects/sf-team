@@ -9,7 +9,9 @@ namespace Script.Players {
         [SerializeField] private Rigidbody rb;
         [SerializeField] private PlayerInputReader reader;
         [SerializeField] private InteractManager interactor;
+        [SerializeField] private PlayerSightController sight;
         [SerializeField] private float speed;
+        [SerializeField] private float jumpPow;
 
         private Vector3 _moveDir;
         
@@ -21,12 +23,20 @@ namespace Script.Players {
             reader.OnMovePressed += OnMove;
             reader.OnJumpPressed += OnJump;
             reader.OnInteractPressed += OnInteract;
+            reader.OnMouseMoved += HandleSight;
+            
         }
+
 
         private void OnDestroy() {
             reader.OnMovePressed -= OnMove;
             reader.OnJumpPressed -= OnJump;
             reader.OnInteractPressed -= OnInteract;
+            reader.OnMouseMoved -= HandleSight;
+        }
+        private void HandleSight(Vector2 obj)
+        {
+            Debug.Log(obj);
         }
 
         private void OnInteract()
@@ -35,17 +45,25 @@ namespace Script.Players {
         }
 
         private void OnJump() {
-            rb.AddForce(new Vector3(0, 3, 0), ForceMode.Impulse);
+            rb.AddForce(Vector3.up * jumpPow, ForceMode.Impulse);
         }
 
         private void OnMove(Vector3 obj) {
             _moveDir = obj;
         }
 
-        private void FixedUpdate() {
-            if (new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z).sqrMagnitude < speed) {
-                rb.AddForce(_moveDir * speed, ForceMode.Force);
-            }
+        private void FixedUpdate()
+        {
+            Vector3 velocity = new Vector3();
+            velocity.y = rb.linearVelocity.y;
+            velocity.x = _moveDir.x * speed;
+            velocity.z = _moveDir.z * speed;
+            rb.linearVelocity = velocity;
+
+            // if (new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z).sqrMagnitude < speed) {
+            //     rb.AddForce(_moveDir * speed, ForceMode.Force);
+            // }
+
         }
     }
 }
