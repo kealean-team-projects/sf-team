@@ -317,7 +317,7 @@ MonoBehaviour:
   currentX: 0
   currentY: 0
   rotationBoundary: 80
-  sensitivity: 1
+  sensitivity: 0.5
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,6 +956,7 @@ MonoBehaviour:
     m_Bits: 64
   debug: 1
   bufferSize: 5
+  <InHandItem>k__BackingField: {fileID: 0}
   <HandPos>k__BackingField: {fileID: 0}
   showInteractable: 0
 --- !u!1 &1327458279
