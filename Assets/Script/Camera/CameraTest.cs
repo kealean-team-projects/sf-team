@@ -6,8 +6,8 @@ namespace Script.Camera {
     public class CameraTest : MonoBehaviour {
         [field: SerializeField] private PlayerInputReader input;
         [SerializeField] private Vector2 mouseDelta;
-        [SerializeField] private float currentX;
-        [SerializeField] private float currentY;
+        [SerializeField] private float currentX = 0f;
+        [SerializeField] private float currentY = 0f;
         [SerializeField] private float rotationBoundary = 80f;
         [SerializeField] private float sensitivity;
 
@@ -15,7 +15,9 @@ namespace Script.Camera {
 
         private UnityEngine.Camera camera;
 
-        private void Awake() {
+        private void Awake()
+        {
+            Mouse.current.WarpCursorPosition(new Vector2(Screen.width/2f, Screen.height/2f));
             input.OnMouseMoved += CameraInput;
             camera = UnityEngine.Camera.main;
         }
@@ -33,14 +35,13 @@ namespace Script.Camera {
 
         private void RotateCam() {
             currentX += mouseDelta.x * sensitivity;
-            currentY += mouseDelta.y * sensitivity;
+            currentY -= mouseDelta.y * sensitivity;
 
             currentX = Mathf.Repeat(currentX, 360f);
+            currentY = Mathf.Clamp(currentY, -rotationBoundary, rotationBoundary);
 
-            var newY = Mathf.Clamp(currentY, -rotationBoundary, rotationBoundary);
-
-            transform.localRotation = Quaternion.Euler(0, currentX, 0);
-            camera.transform.eulerAngles = new Vector3(-newY, currentX, 0);
+            transform.localRotation = Quaternion.Euler(0f, currentX, 0f);
+            camera.transform.localRotation = Quaternion.Euler(currentY, 0f, 0f);
         }
 
         private void CameraInput(Vector2 mousePos) {
