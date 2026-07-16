@@ -16,6 +16,7 @@ namespace Script.Players {
         [SerializeField] private LayerMask whatIsGround;
 
         private bool _arrowJump;
+        private bool _sizeUp;
         private Vector3 _moveDir;
 
         private void Awake() {
@@ -70,10 +71,19 @@ namespace Script.Players {
         }
 
         public void SizeUp() {
+            _sizeUp = true;
             Tween.Scale(transform, Vector3.one * 3, 0.5f, Ease.OutBack);
+            cali.y = -3.09f;
         }
         public void SizeDown() {
+            _sizeUp = false;
             Tween.Scale(transform, Vector3.one, 0.5f, Ease.InBack);
+            cali.y = -1.03f;
+        }
+        
+        public void ChangeSize() {
+            if(!_sizeUp) SizeUp();
+            else SizeDown();
         }
     }
 }

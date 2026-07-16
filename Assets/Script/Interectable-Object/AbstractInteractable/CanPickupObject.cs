@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Script.Interectable_Object.AbstractInteractable
 {
     [RequireComponent(typeof(Rigidbody))]
-    public abstract class CanPickupObject : MonoBehaviour, IInteractable
+    public abstract class CanPickupObject : MonoBehaviour, IInteractable//이거 abstract로 해서 뭐해요?
     {
         [field : SerializeField] public InteractableItemSO Item { get; private set; }
         
