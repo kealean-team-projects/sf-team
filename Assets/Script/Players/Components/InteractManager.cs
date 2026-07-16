@@ -18,6 +18,8 @@ namespace Script.Players.Components {
 
         [field: SerializeField] public Transform HandPos { get; private set; }
 
+        [field: SerializeField] public Player Player { get; private set; }
+
         [SerializeField] private bool showInteractable;
         private Collider[] _interactArray;
 
@@ -27,6 +29,7 @@ namespace Script.Players.Components {
 
         private void Awake() {
             _interactArray = new Collider[bufferSize];
+            Player = transform.root.GetComponent<Player>();
         }
 
         private void OnDrawGizmos() {
