@@ -17,6 +17,7 @@ namespace Script.Interectable_Object.AbstractInteractable
         private bool _loopDirection; //false = straight, true = back
         private int _currentIndex = 1;
         private bool _stopMoving;
+        private int _beforeLenght;
         
         public void Interact(InteractManager owner)
         {
@@ -65,6 +66,15 @@ namespace Script.Interectable_Object.AbstractInteractable
                     
             }
         }
+        
+        private void OnValidate()
+        {
+            if (movePositions.Count > _beforeLenght)
+            {
+                movePositions[^1].SetPos(transform.position);
+            }
+            _beforeLenght = movePositions.Count;
+        }
     }
 
     [Serializable]
@@ -73,5 +83,10 @@ namespace Script.Interectable_Object.AbstractInteractable
         [field: SerializeField] public Vector3 Position { get; private set; }
         [field: SerializeField] public float Delay { get; private set; }
         [field:SerializeField] public Ease EasingType { get; private set; }
+
+        public void SetPos(Vector3 value)
+        {
+            Position = value;
+        }
     }
 }
