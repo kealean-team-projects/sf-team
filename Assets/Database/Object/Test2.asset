@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44662053e3840d2449558323f54fbcf3, type: 3}
   m_Name: Test2
   m_EditorClassIdentifier: Assembly-CSharp::InteractableItemSO
-  <Name>k__BackingField: 
+  <Name>k__BackingField: Test2
