@@ -1,5 +1,5 @@
-using Script.Interectable_Object;
-using Script.Interectable_Object.AbstractInteractable;
+using Script.Interactable_Object;
+using Script.Interactable_Object.AbstractInteractable;
 using UnityEngine;
 
 namespace Script.Players.Components {
