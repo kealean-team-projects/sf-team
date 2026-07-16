@@ -70,10 +70,10 @@ namespace Script.Players {
         }
 
         public void SizeUp() {
-            Tween.Scale(transform, Vector3.one * 3, 0.5f, Ease.OutSine);
+            Tween.Scale(transform, Vector3.one * 3, 0.5f, Ease.OutBack);
         }
         public void SizeDown() {
-            Tween.Scale(transform, Vector3.one, 0.5f, Ease.InSine);
+            Tween.Scale(transform, Vector3.one, 0.5f, Ease.InBack);
         }
     }
 }
