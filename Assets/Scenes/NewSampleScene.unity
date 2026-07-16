@@ -1146,13 +1146,19 @@ MonoBehaviour:
   loopType: 1
   movePositions:
   - <Position>k__BackingField: {x: -3.99, y: 1.3, z: -0.78}
+    <Delay>k__BackingField: 1.2
+    <EasingType>k__BackingField: 0
+  - <Position>k__BackingField: {x: -9.61, y: 1.3, z: -3.11}
+    <Delay>k__BackingField: 1.5
+    <EasingType>k__BackingField: 0
+  - <Position>k__BackingField: {x: -10.7, y: 1.3, z: -7.37}
     <Delay>k__BackingField: 2
     <EasingType>k__BackingField: 0
-  - <Position>k__BackingField: {x: -9.15, y: 1.3, z: -7.15}
-    <Delay>k__BackingField: 2
+  - <Position>k__BackingField: {x: -7.11, y: 1.3, z: -9.61}
+    <Delay>k__BackingField: 2.4
     <EasingType>k__BackingField: 0
-  - <Position>k__BackingField: {x: -8.88, y: 1.3, z: 1.36}
-    <Delay>k__BackingField: 2
+  - <Position>k__BackingField: {x: -3.99, y: 1.3, z: -0.78}
+    <Delay>k__BackingField: 0
     <EasingType>k__BackingField: 0
 --- !u!65 &1897043013
 BoxCollider:
