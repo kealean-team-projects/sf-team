@@ -39,16 +39,23 @@ namespace Script.Players.Components {
             var count = Physics.OverlapBoxNonAlloc(BoxPos, BoxSize * 0.5f, _interactArray,
                 transform.rotation, whatIsTarget);
             Debug.Log($"Overlap count: {count}");
-            if (count <= 0) return;
+            if (count <= 0)
+            {
+                if(InHandItem != null) InHandItem.Item.Interact(this);
+                return;
+            }
             var distance = float.MaxValue;
             IInteractable closestInteractor = null;
             for (var i = 0; i < count; i++) {
                 var collider = _interactArray[i];
                 var rb = collider.attachedRigidbody;
+                
                 if ((!rb || !rb.TryGetComponent<IInteractable>(out var interact)) &&
                     !collider.TryGetComponent(out interact)) continue;
+                
                 var currentDistance = (collider.transform.position - transform.position).sqrMagnitude;
                 if (currentDistance >= distance) continue;
+                
                 distance = currentDistance;
                 closestInteractor = interact;
             }
@@ -61,12 +68,18 @@ namespace Script.Players.Components {
             }
 
             Debug.Log(4);
+            
             closestInteractor.Interact(this);
         }
 
         public void SetHandItem(InteractableItemSO data)
         {
             InHandItem = data;
+        }
+
+        public void PutDownItem()
+        {
+            InHandItem = null;
         }
     }
 }

@@ -26,12 +26,16 @@ namespace Script.Interectable_Object.AbstractInteractable
             if (_isInHand) {
                 _isInHand = false;
                 _rb.useGravity = true;
+                owner.PutDownItem();
+                gameObject.layer = LayerMask.NameToLayer("Interactable");
                 return;
             }
 
             _handPos = owner.HandPos;
+            owner.SetHandItem(Item);
             _rb.useGravity = false;
             _isInHand = true;
+            gameObject.layer = LayerMask.NameToLayer("UnInteractable");
         }
     }
 }
