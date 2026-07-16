@@ -8,15 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c942b16-4128-42b8-b634-46cfc9e47667" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Interectable-Object/AbstractInteractable/RequiringInteractor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Interectable-Object/AbstractInteractable/RequiringInteractor.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Interectable-Object/TestRequire.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Interectable-Object/TestRequire.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Script/Interectable-Object/AbstractInteractable/MovingInteractor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Script/Interectable-Object/AbstractInteractable/MovingInteractor.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.sf-team/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.sf-team/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Interectable-Object/AbstractInteractable/CanPickupObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Interectable-Object/AbstractInteractable/CanPickupInteractor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Interectable-Object/AbstractInteractable/CanPickupObject.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Interectable-Object/AbstractInteractable/CanPickupInteractor.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Interectable-Object/TestPickup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Interectable-Object/TestPickup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Players/Components/InteractManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Players/Components/InteractManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +22,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Script/Camera/CameraTest.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Script/Interectable-Object/AbstractInteractable/MovingInteractor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Script/Interectable-Object/TestInteract.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Script/Interectable-Object/TestRequire.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@21a28c3a6c83/InputSystem/Actions/InputActionState.cs" root0="SKIP_HIGHLIGHTING" />
@@ -123,7 +118,7 @@
       <workItem from="1783992829980" duration="1101000" />
       <workItem from="1784016245256" duration="10655000" />
       <workItem from="1784103251892" duration="2814000" />
-      <workItem from="1784188966599" duration="1063000" />
+      <workItem from="1784188966599" duration="2662000" />
     </task>
     <servers />
   </component>
