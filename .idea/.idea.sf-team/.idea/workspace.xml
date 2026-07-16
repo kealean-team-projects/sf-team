@@ -9,7 +9,10 @@
   <component name="ChangeListManager">
     <list default="true" id="0c942b16-4128-42b8-b634-46cfc9e47667" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.sf-team/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.sf-team/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Players/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Players/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/NewSampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/NewSampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/Interectable-Object/AbstractInteractable/CanPickupObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Interectable-Object/AbstractInteractable/CanPickupObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/Players/Components/InteractManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Players/Components/InteractManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,17 +23,18 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e92a9d0b0413483c8a76c7d4e8fc80ff20ce00/72/addf5b1b/Vector3.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e92a9d0b0413483c8a76c7d4e8fc80ff20ce00/ef/81819324/Transform.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Script/Camera/CameraTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Script/Interectable-Object/TestInteract.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@21a28c3a6c83/InputSystem/Actions/InputActionState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@21a28c3a6c83/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/51804302dc114f2992009a5e79b89b072b200/11/1796c09a/Physics.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/bd077861e3c14a0293599ce85c1f7c3a6dc00/21/05faa811/PhysicsShape.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
   </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2,
   &quot;fromUser&quot;: false
@@ -112,12 +116,15 @@
       <workItem from="1783930443854" duration="2156000" />
       <workItem from="1783952061276" duration="1241000" />
       <workItem from="1783992829980" duration="1101000" />
+      <workItem from="1784016245256" duration="10655000" />
+      <workItem from="1784103251892" duration="2814000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityProjectDiscoverer">
     <option name="hasUnityReference" value="true" />
