@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Script.Interectable_Object.AbstractInteractable
 {
     [RequireComponent(typeof(Rigidbody))]
-    public abstract class CanPickupObject : MonoBehaviour, IInteractable
+    public abstract class CanPickupInteractor : MonoBehaviour, IInteractable
     {
         [field : SerializeField] public InteractableItemSO Item { get; private set; }
         
@@ -12,21 +12,21 @@ namespace Script.Interectable_Object.AbstractInteractable
         private Transform _handPos;
         private bool _isInHand;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             _rb = GetComponent<Rigidbody>();
             Item.SetItem(this);
         }
-        private void FixedUpdate() {
+        protected virtual void FixedUpdate() {
             if (!_isInHand) return;
             transform.position = _handPos.position;
         }
 
-        public void Interact(InteractManager owner) {
+        public virtual void Interact(InteractManager owner) {
             if (_isInHand) {
                 _isInHand = false;
                 _rb.useGravity = true;
-                owner.PutDownItem();
+                owner.RemoveHandlingItem();
                 gameObject.layer = LayerMask.NameToLayer("Interactable");
                 return;
             }

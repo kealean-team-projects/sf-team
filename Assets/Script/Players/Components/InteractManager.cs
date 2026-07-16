@@ -1,4 +1,5 @@
 using Script.Interectable_Object;
+using Script.Interectable_Object.AbstractInteractable;
 using UnityEngine;
 
 namespace Script.Players.Components {
@@ -46,12 +47,15 @@ namespace Script.Players.Components {
             }
             var distance = float.MaxValue;
             IInteractable closestInteractor = null;
+            RequiringInteractor needInteractor = null;
             for (var i = 0; i < count; i++) {
                 var collider = _interactArray[i];
                 var rb = collider.attachedRigidbody;
                 
                 if ((!rb || !rb.TryGetComponent<IInteractable>(out var interact)) &&
                     !collider.TryGetComponent(out interact)) continue;
+                if (collider.TryGetComponent<RequiringInteractor>(out var requiringInteractor))
+                    needInteractor = requiringInteractor;
                 
                 var currentDistance = (collider.transform.position - transform.position).sqrMagnitude;
                 if (currentDistance >= distance) continue;
@@ -60,14 +64,19 @@ namespace Script.Players.Components {
                 closestInteractor = interact;
             }
 
-            Debug.Log(3);
 
+            
+            
             if (closestInteractor == null) {
-                Debug.LogWarning("감지된 물체중 IInteractable을 가진 물체가 없음");
+                Debug.LogWarning("There's no Object having IInteractable");
                 return;
             }
 
-            Debug.Log(4);
+            if (needInteractor == null && InHandItem != null)
+            {
+                InHandItem.Item.Interact(this);
+                return;
+            }
             
             closestInteractor.Interact(this);
         }
@@ -77,7 +86,7 @@ namespace Script.Players.Components {
             InHandItem = data;
         }
 
-        public void PutDownItem()
+        public void RemoveHandlingItem()
         {
             InHandItem = null;
         }
