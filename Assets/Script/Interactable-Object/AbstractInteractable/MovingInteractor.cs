@@ -18,9 +18,17 @@ namespace Script.Interactable_Object.AbstractInteractable
         private int _currentIndex = 1;
         private bool _stopMoving;
         private int _beforeLenght;
-        
+        protected InteractManager Owner;
+        private bool _checkPos = true;
+
+        protected virtual void Awake()
+        {
+            _checkPos = false;
+        }
+
         public void Interact(InteractManager owner)
         {
+            Owner = owner;
             if (_stopMoving) return;
             if (!isLoop)
             {
@@ -65,15 +73,36 @@ namespace Script.Interactable_Object.AbstractInteractable
                 }
                     
             }
+
+            InteractEffect();
         }
-        
-        private void OnValidate()
+
+        public void SpecialInteract(InteractManager owner)
         {
-            if (movePositions.Count > _beforeLenght)
-            {
-                movePositions[^1].SetPos(transform.position);
-            }
-            _beforeLenght = movePositions.Count;
+            Owner = owner;
+            SpecialInteractEffect();
+        }
+
+        protected virtual void SpecialInteractEffect()
+        {
+            
+        }
+
+        protected virtual void InteractEffect()
+        {
+        }
+
+        [ContextMenu("ResetPositionToFirstPosition")]
+        private void MoveFirstPos()
+        {
+            transform.position = movePositions[0].Position;
+        }
+
+        [ContextMenu("SetCurrentPos")]
+        private void SetCurrentPos()
+        {
+            movePositions.Add(new MovePositionEntry());
+            movePositions[^1].SetPos(transform.position);
         }
     }
 

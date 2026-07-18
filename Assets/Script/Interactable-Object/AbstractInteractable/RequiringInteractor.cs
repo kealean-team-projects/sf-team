@@ -7,16 +7,27 @@ namespace Script.Interactable_Object.AbstractInteractable
     {
         [field: SerializeField] public InteractableItemSO NeedItem { get; private set;}
 
-        private InteractManager _owner;
+        protected InteractManager Owner;
 
         public void Interact(InteractManager owner)
         {
             if (owner.InHandItem != NeedItem) return;
-            _owner = owner;
+            Owner = owner;
             InteractEffect();
         }
 
+        public void SpecialInteract(InteractManager owner)
+        {
+            Owner = owner;
+            SpecialInteractEffect();
+        }
+
         protected virtual void InteractEffect()
+        {
+            
+        }
+
+        protected virtual void SpecialInteractEffect()
         {
             
         }

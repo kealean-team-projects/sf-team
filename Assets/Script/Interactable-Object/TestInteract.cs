@@ -6,5 +6,10 @@ namespace Script.Interactable_Object {
         public void Interact(InteractManager owner) {
             Debug.Log("interacted");
         }
+
+        public void SpecialInteract(InteractManager owner)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
