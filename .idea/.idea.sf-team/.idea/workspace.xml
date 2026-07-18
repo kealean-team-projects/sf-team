@@ -8,16 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c942b16-4128-42b8-b634-46cfc9e47667" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage1/Rope.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage1/Rope.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.sf-team/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.sf-team/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/New Folder.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Interactable-Object/AbstractInteractable/CanPickupInteractor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Interactable-Object/AbstractInteractable/CanPickupInteractor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Interactable-Object/AbstractInteractable/MovingInteractor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Interactable-Object/AbstractInteractable/MovingInteractor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Interactable-Object/AbstractInteractable/RequiringInteractor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Interactable-Object/AbstractInteractable/RequiringInteractor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Script/Interactable-Object/IInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Interactable-Object/IInteractable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Interactable-Object/TestGrow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Interactable-Object/TestGrow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Interactable-Object/TestInteract.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Interactable-Object/TestInteract.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +119,7 @@
       <workItem from="1784016245256" duration="10655000" />
       <workItem from="1784103251892" duration="2814000" />
       <workItem from="1784188966599" duration="7153000" />
-      <workItem from="1784353944687" duration="2620000" />
+      <workItem from="1784353944687" duration="3724000" />
     </task>
     <servers />
   </component>
