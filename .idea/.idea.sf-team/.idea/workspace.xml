@@ -7,10 +7,7 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c942b16-4128-42b8-b634-46cfc9e47667" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.sf-team/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.sf-team/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Interactable-Object/IInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Interactable-Object/IInteractable.cs" afterDir="false" />
-    </list>
+    <list default="true" id="0c942b16-4128-42b8-b634-46cfc9e47667" name="변경" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -119,7 +116,7 @@
       <workItem from="1784016245256" duration="10655000" />
       <workItem from="1784103251892" duration="2814000" />
       <workItem from="1784188966599" duration="7153000" />
-      <workItem from="1784353944687" duration="3724000" />
+      <workItem from="1784353944687" duration="7224000" />
     </task>
     <servers />
   </component>
