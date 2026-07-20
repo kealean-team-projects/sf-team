@@ -9,9 +9,9 @@ namespace Script.Interactable_Object.AbstractInteractable
         [field : SerializeField] public InteractableItemSO Item { get; private set; }
 
         protected InteractManager Owner;
-        private Rigidbody _rb;
-        private Transform _handPos;
-        private bool _isInHand;
+        protected Rigidbody _rb;
+        protected Transform _handPos;
+        protected bool _isInHand;
 
         protected virtual void Awake()
         {
@@ -31,6 +31,7 @@ namespace Script.Interactable_Object.AbstractInteractable
                 _rb.useGravity = true;
                 owner.RemoveHandlingItem();
                 gameObject.layer = LayerMask.NameToLayer("Interactable");
+                PutDownEffect();
                 return;
             }
 
@@ -39,6 +40,7 @@ namespace Script.Interactable_Object.AbstractInteractable
             _rb.useGravity = false;
             _isInHand = true;
             gameObject.layer = LayerMask.NameToLayer("UnInteractable");
+            PickUpEffect();
         }
 
         public void SpecialInteract(InteractManager owner)
@@ -49,6 +51,16 @@ namespace Script.Interactable_Object.AbstractInteractable
 
         protected virtual void SpecialInteractEffect()
         {
+        }
+
+        protected virtual void PutDownEffect()
+        {
+            
+        }
+
+        protected virtual void PickUpEffect()
+        {
+            
         }
     }
 }

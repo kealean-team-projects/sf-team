@@ -9,6 +9,7 @@ namespace Script.Puzzle.Horror.Stage1
         [SerializeField] private InteractableItemSO mySO;
         
         
+        
         private bool _didGet;
 
         private void Awake()
@@ -19,6 +20,7 @@ namespace Script.Puzzle.Horror.Stage1
         protected override void InteractEffect()
         {
             _didGet = true;
+            NeedItem.Item.SpecialInteract(Owner);
         }
 
         protected override void SpecialInteractEffect()

@@ -1,9 +1,8 @@
-using System;
 using UnityEngine;
 
-namespace Script.Test
+namespace Script.Puzzle.Horror.Stage1
 {
-    public class ReflectionObjectTest : MonoBehaviour
+    public class ReflectedObject : MonoBehaviour
     {
         [SerializeField] private Transform target;
 
