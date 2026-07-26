@@ -7,7 +7,9 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c942b16-4128-42b8-b634-46cfc9e47667" name="변경" comment="" />
+    <list default="true" id="0c942b16-4128-42b8-b634-46cfc9e47667" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Horror/Stage1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Horror/Stage1.unity" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,6 +27,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.kyrylokuzyk.primetween@9acf248b638b/Runtime/Internal/PrimeTweenManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@21a28c3a6c83/InputSystem/Actions/InputActionState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@21a28c3a6c83/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@276396f56b3f/Editor/Lighting/UniversalRenderPipelineSerializedLight.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/c4546e9210b84e2ca9c647da5a51838c16400/12/381a1398/02000012pdb6Low.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/51804302dc114f2992009a5e79b89b072b200/11/1796c09a/Physics.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/bd077861e3c14a0293599ce85c1f7c3a6dc00/21/05faa811/PhysicsShape.cs" root0="FORCE_HIGHLIGHTING" />
@@ -120,7 +123,7 @@
       <workItem from="1784188966599" duration="7153000" />
       <workItem from="1784353944687" duration="7224000" />
       <workItem from="1784530480268" duration="2809000" />
-      <workItem from="1785063617107" duration="593000" />
+      <workItem from="1785063617107" duration="1289000" />
     </task>
     <servers />
   </component>
