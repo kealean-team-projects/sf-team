@@ -26,7 +26,7 @@ namespace Script.Puzzle.Horror.Stage1
             Owner.RemoveHandlingItem();
             _isInHand = false;
             _rb.constraints = RigidbodyConstraints.FreezeAll;
-            transform.position = hangingPos;
+            transform.position = transform.InverseTransformPoint(hangingPos);
             StartCoroutine(DropDelay());
         }
 
