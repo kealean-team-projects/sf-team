@@ -27,10 +27,10 @@ namespace Script.Puzzle.Horror.Stage1
             _isInHand = false;
             _rb.constraints = RigidbodyConstraints.FreezeAll;
             transform.position = transform.InverseTransformPoint(hangingPos);
-            StartCoroutine(DropDelay());
+            StartCoroutine(DropCo());
         }
 
-        private IEnumerator DropDelay()
+        private IEnumerator DropCo()
         {
             yield return Delay;
             _myMesh = after;

@@ -10,6 +10,7 @@ namespace Script.Puzzle.Horror.Stage1
         {
             transform.localPosition =
                 new Vector3(-target.localPosition.x, target.localPosition.y, -target.localPosition.z);
+            transform.rotation = target.rotation;
         }
     }
 }

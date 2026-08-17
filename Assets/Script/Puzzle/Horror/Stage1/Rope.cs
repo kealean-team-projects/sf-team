@@ -6,7 +6,7 @@ namespace Script.Puzzle.Horror.Stage1
 {
     public class Rope : RequiringInteractor
     {
-        [SerializeField] private InteractableItemSO mySO;
+        [SerializeField] private InteractableItemSO myData;
         
         
         
@@ -14,7 +14,7 @@ namespace Script.Puzzle.Horror.Stage1
 
         private void Awake()
         {
-            mySO.SetItem(this);
+            myData.SetItem(this);
         }
 
         protected override void InteractEffect()
@@ -27,11 +27,11 @@ namespace Script.Puzzle.Horror.Stage1
         {
             if (_didGet)
             {
-                Debug.Log("Doll Died");
+                Debug.Log("Doll Die");
             }
             else
             {
-                Debug.Log("Player Died");
+                Debug.Log("Player Die");
             }
         }
     }
