@@ -8,13 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c942b16-4128-42b8-b634-46cfc9e47667" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage1/Mirror.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage1/Mirror.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.sf-team/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.sf-team/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Horror/Stage1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Horror/Stage1.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage1/Doll.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage1/Doll.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage1/ReflectedObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage1/ReflectedObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage1/Rope.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage1/Rope.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,6 +128,7 @@
       <workItem from="1785339996968" duration="267000" />
       <workItem from="1785645492865" duration="20000" />
       <workItem from="1787007998925" duration="1931000" />
+      <workItem from="1787124002892" duration="942000" />
     </task>
     <servers />
   </component>
