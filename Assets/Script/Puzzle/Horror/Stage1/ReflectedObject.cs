@@ -1,9 +1,8 @@
-using System;
 using UnityEngine;
 
-namespace Script.Test
+namespace Script.Puzzle.Horror.Stage1
 {
-    public class ReflectionObjectTest : MonoBehaviour
+    public class ReflectedObject : MonoBehaviour
     {
         [SerializeField] private Transform target;
 
@@ -11,6 +10,7 @@ namespace Script.Test
         {
             transform.localPosition =
                 new Vector3(-target.localPosition.x, target.localPosition.y, -target.localPosition.z);
+            transform.rotation = target.rotation;
         }
     }
 }

@@ -13,5 +13,10 @@ namespace Script.Interactable_Object {
         public void Interact(InteractManager owner) {
             owner.Player.ChangeSize();
         }
+
+        public void SpecialInteract(InteractManager owner)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

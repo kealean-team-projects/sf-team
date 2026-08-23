@@ -7,10 +7,11 @@ namespace Script.Interactable_Object.AbstractInteractable
     public abstract class CanPickupInteractor : MonoBehaviour, IInteractable
     {
         [field : SerializeField] public InteractableItemSO Item { get; private set; }
-        
-        private Rigidbody _rb;
-        private Transform _handPos;
-        private bool _isInHand;
+
+        protected InteractManager Owner;
+        protected Rigidbody _rb;
+        protected Transform _handPos;
+        protected bool _isInHand;
 
         protected virtual void Awake()
         {
@@ -22,12 +23,15 @@ namespace Script.Interactable_Object.AbstractInteractable
             transform.position = _handPos.position;
         }
 
-        public virtual void Interact(InteractManager owner) {
+        public virtual void Interact(InteractManager owner)
+        {
+            Owner = owner;
             if (_isInHand) {
                 _isInHand = false;
                 _rb.useGravity = true;
                 owner.RemoveHandlingItem();
                 gameObject.layer = LayerMask.NameToLayer("Interactable");
+                PutDownEffect();
                 return;
             }
 
@@ -36,6 +40,27 @@ namespace Script.Interactable_Object.AbstractInteractable
             _rb.useGravity = false;
             _isInHand = true;
             gameObject.layer = LayerMask.NameToLayer("UnInteractable");
+            PickUpEffect();
+        }
+
+        public void SpecialInteract(InteractManager owner)
+        {
+            Owner = owner;
+            SpecialInteractEffect();
+        }
+
+        protected virtual void SpecialInteractEffect()
+        {
+        }
+
+        protected virtual void PutDownEffect()
+        {
+            
+        }
+
+        protected virtual void PickUpEffect()
+        {
+            
         }
     }
 }
