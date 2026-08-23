@@ -18,6 +18,7 @@ namespace Script.Players {
         private bool _arrowJump;
         private bool _sizeUp;
         private Vector3 _moveDir;
+        private Collider[] result;
 
         private void Awake() {
             reader.OnMovePressed += OnMove;
@@ -38,9 +39,9 @@ namespace Script.Players {
             };
             rb.linearVelocity = velocity;
 
-            var jhit = Physics.OverlapBox(transform.position + cali, middle, Quaternion.identity, whatIsGround);
+            var size = Physics.OverlapBoxNonAlloc(transform.position + cali, middle, result, Quaternion.identity, whatIsGround);
 
-            _arrowJump = jhit.Length > 0;
+            _arrowJump = size > 0;
 
             // if (new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z).sqrMagnitude < speed) {
             //     rb.AddForce(_moveDir * speed, ForceMode.Force);

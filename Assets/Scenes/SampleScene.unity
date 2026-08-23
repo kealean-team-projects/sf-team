@@ -952,10 +952,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
   m_IsGlobal: 1
-  priority: 0
+  priority: -6.06
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 8e884451073284d4da98a6b30b65c1c1, type: 2}
+  sharedProfile: {fileID: 11400000, guid: ea676b18f1a10b342ace0726453ad4e7, type: 2}
 --- !u!4 &1362629324
 Transform:
   m_ObjectHideFlags: 0
