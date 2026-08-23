@@ -1,5 +1,4 @@
 using Script.Interactable_Object;
-using Script.Interectable_Object;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "InteractableItemSO", menuName = "Interact/InteractableItemSO")]
