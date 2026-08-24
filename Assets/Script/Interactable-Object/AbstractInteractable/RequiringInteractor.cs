@@ -9,14 +9,14 @@ namespace Script.Interactable_Object.AbstractInteractable
 
         protected InteractManager Owner;
 
-        public void Interact(InteractManager owner)
+        public virtual void Interact(InteractManager owner)
         {
             if (owner.InHandItem != NeedItem) return;
             Owner = owner;
             InteractEffect();
         }
 
-        public void SpecialInteract(InteractManager owner)
+        public virtual void SpecialInteract(InteractManager owner)
         {
             Owner = owner;
             SpecialInteractEffect();

@@ -8,7 +8,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c942b16-4128-42b8-b634-46cfc9e47667" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage2.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage2/Apple.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage2/Apple.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage2/AppleTreePicture.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage2/AppleTreePicture.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage2/FirstPicture.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage2/FirstPicture.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.sf-team/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.sf-team/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Horror/Stage1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Horror/Stage1.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/Interactable-Object/AbstractInteractable/RequiringInteractor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Interactable-Object/AbstractInteractable/RequiringInteractor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage1/Mirror.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage1/Mirror.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectAuditorSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectAuditorSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,11 +36,10 @@
     <setting file="file://$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage1/Hammer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage1/Mirror.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage1/Rope.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.kyrylokuzyk.primetween@9acf248b638b/Runtime/Internal/Assert.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.kyrylokuzyk.primetween@9acf248b638b/Runtime/Internal/PrimeTweenManager.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@21a28c3a6c83/InputSystem/Actions/InputActionState.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@21a28c3a6c83/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@276396f56b3f/Editor/Lighting/UniversalRenderPipelineSerializedLight.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage2/Apple.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage2/AppleTreePicture.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Script/Puzzle/Horror/Stage2/FirstPicture.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@73b4c4ff130e/Runtime/ScriptableRendererData.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/c4546e9210b84e2ca9c647da5a51838c16400/12/381a1398/02000012pdb6Low.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/51804302dc114f2992009a5e79b89b072b200/11/1796c09a/Physics.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/bd077861e3c14a0293599ce85c1f7c3a6dc00/21/05faa811/PhysicsShape.cs" root0="FORCE_HIGHLIGHTING" />
@@ -67,7 +78,7 @@
 }</component>
   <component name="RunManager" selected="Unity 에디터에 연결.Unity 에디터에 연결">
     <configuration name="유닛 테스트(배치 모드)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.5.3f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.5.8f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Github\sf-team -testResults Logs/results.xml -logFile Logs/Editor.log -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Github\sf-team" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -77,7 +88,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Unity 시작" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.5.3f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.5.8f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath C:\Github\sf-team -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Github\sf-team" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -129,6 +140,7 @@
       <workItem from="1785645492865" duration="20000" />
       <workItem from="1787007998925" duration="1931000" />
       <workItem from="1787124002892" duration="942000" />
+      <workItem from="1787560481148" duration="5472000" />
     </task>
     <servers />
   </component>

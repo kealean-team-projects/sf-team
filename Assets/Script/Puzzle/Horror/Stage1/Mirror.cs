@@ -17,5 +17,10 @@ namespace Script.Puzzle.Horror.Stage1
                 moveTarget.position += moveValue;
             }
         }
+
+        protected override void SpecialInteractEffect()
+        {
+            base.SpecialInteractEffect();
+        }
     }
 }
